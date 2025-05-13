@@ -1,0 +1,4 @@
+excepciones\PersistenciaException.class
+persistencia\Productos.class
+persistencia\ProductosGranel.class
+persistencia\MovimientosGranel.class
