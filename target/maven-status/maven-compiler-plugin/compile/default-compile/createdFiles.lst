@@ -1,4 +1,13 @@
-excepciones\PersistenciaException.class
+ObjetosNegocio\Producto.class
 persistencia\Productos.class
+ObjetosNegocio\ProductoEmpacado.class
+Pruebas\AbarrotesPersistencia_00000252266_00000246835.class
+ObjetosNegocio\MovimientoEmpacado.class
+excepciones\PersistenciaException.class
 persistencia\ProductosGranel.class
 persistencia\MovimientosGranel.class
+ObjetosServicio\Periodo.class
+ObjetosNegocio\MovimientoGranel.class
+ObjetosNegocio\ProductoGranel.class
+ObjetosNegocio\Movimiento.class
+ObjetosServicio\Fecha.class
