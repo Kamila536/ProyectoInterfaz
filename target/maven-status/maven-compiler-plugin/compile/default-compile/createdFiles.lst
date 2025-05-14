@@ -10,4 +10,5 @@ ObjetosServicio\Periodo.class
 ObjetosNegocio\MovimientoGranel.class
 ObjetosNegocio\ProductoGranel.class
 ObjetosNegocio\Movimiento.class
+Pruebas\Pruebas03.class
 ObjetosServicio\Fecha.class
