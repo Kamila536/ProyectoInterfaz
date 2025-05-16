@@ -1,10 +1,6 @@
 
 package Pruebas;
 
-/**
- *
- * @author 52644
- */
 import ObjetosNegocio.MovimientoGranel;
 import ObjetosNegocio.Producto;
 import ObjetosNegocio.ProductoGranel;
@@ -14,71 +10,115 @@ import persistencia.MovimientosGranel;
 
 import java.util.List;
 
+/**
+ * 
+ * @author 52644
+ */
 
 public class Pruebas03 {
     public static void main(String[] args) {
+
+        Producto productoValido = null;
+        Producto productoInvalido = null;
+        ProductoGranel productoGranel = null;
+        MovimientosGranel compras = new MovimientosGranel();
+        Fecha fechaHoy = new Fecha();
+
+        // Crear producto válido
         try {
-            // Crear un producto válido 
-            Producto productoValido = new Producto("GR001", "Frijol", "G", "KG");
+            productoValido = new Producto("GR001", "Frijol", "G", "KG");
             System.out.println("Producto válido creado: " + productoValido);
+        } catch (Exception e) {
+            System.out.println("Error al crear producto válido: " + e.getMessage());
+        }
 
-            // Crear un producto inválido (tipo A)
-            Producto productoInvalido = new Producto("GR002", "Arroz", "A", "KG");
-            System.out.println("Producto inválido creado (tipo A): " + productoInvalido);
+        // Crear producto inválido
+        try {
+            productoInvalido = new Producto("GR002", "Arroz", "A", "KG");
+            System.out.println("Producto inválido creado (esto no debería pasar): " + productoInvalido);
+        } catch (Exception e) {
+            System.out.println("Error esperado al crear producto inválido (tipo A): " + e.getMessage());
+        }
 
-            // Consultar el producto válido por clave
-            if ("GR001".equals(productoValido.getClave())) {
+        // Consultar producto por clave
+        try {
+            if (productoValido != null && "GR001".equals(productoValido.getClave())) {
                 System.out.println("Consulta por clave exitosa: " + productoValido);
             }
+        } catch (Exception e) {
+            System.out.println("Error en consulta por clave: " + e.getMessage());
+        }
 
-            // Actualizar el tipo del producto válido a "A"
-            productoValido.setTipo("A");
-            System.out.println("Producto actualizado (ahora tipo A): " + productoValido);
+        // Actualizar tipo a "A"
+        try {
+            if (productoValido != null) {
+                productoValido.setTipo("A");
+                System.out.println("Producto actualizado a tipo A: " + productoValido);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al actualizar tipo: " + e.getMessage());
+        }
 
-            // Restaurar tipo a "G" para crear ProductoGranel
-            productoValido.setTipo("G");
+        // Restaurar tipo a "G"
+        try {
+            if (productoValido != null) {
+                productoValido.setTipo("G");
+            }
+        } catch (Exception e) {
+            System.out.println("Error al restaurar tipo G: " + e.getMessage());
+        }
 
-            // Crear un ProductoGranel válido
-            ProductoGranel productoGranel = new ProductoGranel(productoValido, 10.0);
-            System.out.println("ProductoGranel creado correctamente: " + productoGranel);
+        // Crear ProductoGranel válido
+        try {
+            if (productoValido != null) {
+                productoGranel = new ProductoGranel(productoValido, 10.0);
+                System.out.println("ProductoGranel creado correctamente: " + productoGranel);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al crear ProductoGranel: " + e.getMessage());
+        }
 
-            // Crear gestor de compras
-            MovimientosGranel compras = new MovimientosGranel();
-
-            // Crear fecha actual
-            Fecha fechaHoy = new Fecha();
-
-            // Crear compra válida
-            MovimientoGranel compra1 = new MovimientoGranel("MC001", fechaHoy, false, productoGranel);
-            try {
+        // Registrar compra válida
+        try {
+            if (productoGranel != null) {
+                MovimientoGranel compra1 = new MovimientoGranel("MC001", fechaHoy, false, productoGranel);
                 compras.registrarCompra(compra1);
                 System.out.println("Compra 1 registrada exitosamente.");
-            } catch (PersistenciaException e) {
-                System.out.println("Error al registrar compra 1: " + e.getMessage());
             }
+        } catch (PersistenciaException e) {
+            System.out.println("Error al registrar compra 1: " + e.getMessage());
+        }
 
-            // Crear una compra duplicada (mismo producto y misma fecha)
-            MovimientoGranel compra2 = new MovimientoGranel("MC002", fechaHoy, false, productoGranel);
-            try {
+        // Registrar compra duplicada (mismo producto y fecha)
+        try {
+            if (productoGranel != null) {
+                MovimientoGranel compra2 = new MovimientoGranel("MC002", fechaHoy, false, productoGranel);
                 compras.registrarCompra(compra2);
                 System.out.println("Compra 2 registrada exitosamente (esto no debería pasar).");
-            } catch (PersistenciaException e) {
-                System.out.println("Error al registrar compra 2 (esperado): " + e.getMessage());
             }
+        } catch (PersistenciaException e) {
+            System.out.println("Error esperado al registrar compra duplicada: " + e.getMessage());
+        }
 
-            // Mostrar lista de compras registradas
+        // Mostrar lista de compras
+        try {
             List<MovimientoGranel> listaCompras = compras.consultarCompras();
             System.out.println("\nLista de compras registradas:");
             for (MovimientoGranel mg : listaCompras) {
-                System.out.println(mg);
+                System.out.println(" - " + mg);
             }
-
-            // Mostrar productos a granel
-            System.out.println("\nProductosGranel registrados:");
-            ProductoGranel.desplegarProductosGranel(productoGranel);
-
         } catch (Exception e) {
-            System.out.println("Error general en la ejecución: " + e.getMessage());
+            System.out.println("Error al consultar compras: " + e.getMessage());
+        }
+
+        // Mostrar productos a granel
+        try {
+            if (productoGranel != null) {
+                System.out.println("\nProductoGranel registrado:");
+                ProductoGranel.desplegarProductosGranel(productoGranel);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al mostrar productos a granel: " + e.getMessage());
         }
     }
 }
