@@ -15,8 +15,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ProductosTest {
-    
-private Productos repositorio;
+    private Productos repositorio;
     private Producto producto1;
     private Producto producto2;
 
@@ -27,6 +26,7 @@ private Productos repositorio;
         producto2 = new Producto("GR001", "Frijol", "G", "KG");
     }
 
+    
     @Test
     public void testAgregarProductoExitoso() {
         try {

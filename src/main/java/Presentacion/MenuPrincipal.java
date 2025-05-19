@@ -2,6 +2,8 @@ package Presentacion;
 
 import ObjetosNegocio.Producto;
 import ObjetosNegocio.ProductoGranel;
+import excepciones.PersistenciaException;
+import java.util.List;
 import java.util.Scanner;
 import persistencia.Productos;
 
@@ -72,65 +74,86 @@ public class MenuPrincipal{
     //metodos de cada opcion
 
     private void agregarProducto() {
-        
     System.out.println("== Agregar nuevo producto ==");
 
-    scanner.nextLine(); // limpiar buffer
+    scanner.nextLine(); // Limpiar buffer de entrada
 
-    System.out.print("Ingrese la clave del producto: ");
-    String clave = scanner.nextLine().trim();
-
-    // Validar si ya existe un producto con esa clave
-//    if ((clave) != null) {
-//        System.out.println("Ya existe un producto con esa clave. No se puede agregar.");
-//        return;
-//    }
-
-    System.out.print("Ingrese el nombre del producto: ");
-    String nombre = scanner.nextLine().trim();
-
-    String unidad;
+    String clave;
     while (true) {
-        System.out.print("Ingrese la unidad (kg/l): ");
-        unidad = scanner.nextLine().trim().toLowerCase();
-        if (unidad.equals("kg") || unidad.equals("l")) break;
-        System.out.println("Unidad no válida. Solo se permite 'kg' o 'l'.");
+        System.out.print("Ingrese la clave del producto: ");
+        clave = scanner.nextLine().trim();
+        if (clave.isEmpty()) {
+            System.out.println("La clave no puede estar vacía.");
+            continue;
+        }
+
+        // Validar si la clave ya existe
+        if (productos.consultarPorClave(clave) != null) {
+            System.out.println("Ya existe un producto con esa clave. No se puede agregar.");
+            return;
+        }
+        break;
     }
 
+    String nombre;
+    while (true) {
+        System.out.print("Ingrese el nombre del producto: ");
+        nombre = scanner.nextLine().trim();
+        if (!nombre.isEmpty()) break;
+        System.out.println("El nombre no puede estar vacío.");
+    }
+    
     String tipo;
     while (true) {
-        System.out.print("Ingrese el tipo de producto (Granel/Empaque): ");
+        System.out.print("Ingrese el tipo de producto (G/E): ");
         tipo = scanner.nextLine().trim().toLowerCase();
-        if (tipo.equals("granel") || tipo.equals("empaque")) break;
-        System.out.println("Tipo no válido. Solo se permite 'Granel' o 'Empaque'.");
+        if (tipo.equals("g") || tipo.equals("e")) break;
+        System.out.println("Tipo no válido. Solo se permite '(G)Granel' o '(E)Empacado'.");
+    }
+    
+    String unidad;
+    while (true) {
+        System.out.print("Ingrese la unidad (kg/l/pz/g): ");
+        unidad = scanner.nextLine().trim().toLowerCase();
+        if (unidad.equals("kg") || unidad.equals("l")|| unidad.equals("pz")|| unidad.equals("g")) break;
+        System.out.println("Unidad no válida. Solo se permite 'kg' , 'l' , 'pz' o 'g'.");
     }
 
     try {
-        
-    Producto producto;
+        Producto producto;
 
-    if (tipo.equalsIgnoreCase("granel")) {
-        Producto baseProducto = new Producto(clave, nombre, tipo, unidad);
-        producto = new ProductoGranel(baseProducto, 0.0);//cambiar 0.0 por cantidad
-    } else {
-        producto = new Producto(clave, nombre, tipo, unidad);
+        if (tipo.equals("granel")) {
+            double cantidad = 0.0;
+            while (true) {
+                System.out.print("Ingrese la cantidad inicial (en " + unidad + "): ");
+                String input = scanner.nextLine().trim();
+                try {
+                    cantidad = Double.parseDouble(input);
+                    if (cantidad >= 0) break;
+                    else System.out.println("La cantidad no puede ser negativa.");
+                } catch (NumberFormatException e) {
+                    System.out.println("Cantidad no válida. Ingrese un número.");
+                }
+            }
+            Producto baseProducto = new Producto(clave, nombre, tipo, unidad);
+            producto = new ProductoGranel(baseProducto, cantidad);
+        } else {
+            producto = new Producto(clave, nombre, tipo, unidad);
+        }
+
+        productos.agregar(producto);
+        System.out.println("Producto agregado correctamente.");
+
+    } catch (PersistenciaException e) {
+        System.out.println("Ocurrió un error al agregar el producto: " + e.getMessage());
     }
-
-
-    //Falta Agregar producto (me falta modificar codigo xd)
-    productos.agregar(producto);
-    System.out.println("Producto agregado correctamente.");
-
-    } catch (Exception e) {
-    System.out.println("Ocurrió un error al agregar el producto: " + e.getMessage());
-    }
-
 }
 
 
     private void consultarProducto() {
         
         System.out.println("== Consultar producto por clave ==");
+        System.out.println(productos.consultarTodos());
     }
 
     private void actualizarProducto() {
@@ -144,9 +167,18 @@ public class MenuPrincipal{
     }
 
     private void consultarCatalogo() {
-        
-        System.out.println("== Consultar catálogo de productos ==");
+    System.out.println("== Consultar catálogo de productos ==");
+
+    List<Producto> lista = productos.consultarTodos();
+    if (lista.isEmpty()) {
+        System.out.println("No hay productos registrados en el catálogo.");
+    } else {
+        for (Producto p : lista) {
+            System.out.println(p); 
+        }
     }
+}
+
 
     private void agregarCompraGranel() {
         

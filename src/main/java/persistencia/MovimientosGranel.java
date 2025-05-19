@@ -14,7 +14,8 @@ import java.util.stream.Collectors;
  * @author Kamilala
  */
 public class MovimientosGranel {
-
+//
+//    private List<MovimientoGranel> movimientosGranel;
     private List<MovimientoGranel> movimientosCompra;
     private List<MovimientoGranel> movimientosVenta;
     

@@ -85,7 +85,7 @@ public class Producto {
 
     // Valida el formato de la clave y su coherencia con el tipo
     private boolean esClaveValida(String clave, String tipo) {
-        if (clave == null || clave.length() != 5) {
+        if (clave == null || !clave.matches("^[A-Za-z]{2}\\d{3}$")) {
             return false;
         }
 
@@ -98,8 +98,8 @@ public class Producto {
         }
 
         // Validar prefijo-tipo
-        if ((prefijo.equals("EM") && !tipo.equals("E")) ||
-            (prefijo.equals("GR") && !tipo.equals("G"))) {
+        if ((prefijo.equals("EM") && !tipo.equals("empacado")) ||
+            (prefijo.equals("GR") && !tipo.equals("granel"))) {
             return false;
         }
 
