@@ -1,5 +1,6 @@
 ObjetosNegocio\Producto.class
 persistencia\Productos.class
+Presentacion\SistemaBiblioteca.class
 ObjetosNegocio\ProductoEmpacado.class
 Pruebas\AbarrotesPersistencia_00000252266_00000246835.class
 ObjetosNegocio\MovimientoEmpacado.class
@@ -8,7 +9,10 @@ persistencia\ProductosGranel.class
 persistencia\MovimientosGranel.class
 ObjetosServicio\Periodo.class
 ObjetosNegocio\MovimientoGranel.class
+Presentacion\MenuPrincipal.class
 ObjetosNegocio\ProductoGranel.class
+persistencia\IPersistenciaFachada.class
 ObjetosNegocio\Movimiento.class
 Pruebas\Pruebas03.class
+persistencia\PersistenciaFachada.class
 ObjetosServicio\Fecha.class

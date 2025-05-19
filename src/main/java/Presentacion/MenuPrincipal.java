@@ -11,12 +11,15 @@ import persistencia.Productos;
  */
 public class MenuPrincipal{
     private Scanner scanner;
+    private Productos productos;
 
     public  MenuPrincipal() {
         scanner = new Scanner(System.in);
     }
     
  public void mostrar() {
+        
+        productos = new Productos();
         int opcion;
 
         do {
@@ -69,6 +72,7 @@ public class MenuPrincipal{
     //metodos de cada opcion
 
     private void agregarProducto() {
+        
     System.out.println("== Agregar nuevo producto ==");
 
     scanner.nextLine(); // limpiar buffer
@@ -114,6 +118,7 @@ public class MenuPrincipal{
 
 
     //Falta Agregar producto (me falta modificar codigo xd)
+    productos.agregar(producto);
     System.out.println("Producto agregado correctamente.");
 
     } catch (Exception e) {
