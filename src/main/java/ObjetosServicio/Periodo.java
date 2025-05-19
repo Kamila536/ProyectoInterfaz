@@ -1,8 +1,5 @@
 package ObjetosServicio;
 
-
-import ObjetosServicio.Fecha;
-
 public class Periodo {
     private Fecha desde;
     private Fecha hasta;
