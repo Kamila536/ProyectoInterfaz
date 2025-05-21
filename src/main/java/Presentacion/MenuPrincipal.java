@@ -71,7 +71,7 @@ public class MenuPrincipal{
         return scanner.nextInt();
     }
 
-    //metodos de cada opcion
+    //metodos de cada opcion mandar metodos a persistencia 
 
     private void agregarProducto() {
     System.out.println("== Agregar nuevo producto ==");
