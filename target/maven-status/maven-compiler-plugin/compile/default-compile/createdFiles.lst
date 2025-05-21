@@ -21,5 +21,6 @@ FachadaI$3$1.class
 MostrarMenu.class
 ObjetosNegocio\ProductoGranel.class
 ObjetosNegocio\Movimiento.class
+Control.class
 persistencia\PersistenciaFachada.class
 ObjetosServicio\Fecha.class
