@@ -113,6 +113,11 @@ public class FachadaI extends javax.swing.JDialog {
         ProductosMenu.add(ConsultarProducto);
 
         EliminarProducto.setText("Eliminar");
+        EliminarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarProductoActionPerformed(evt);
+            }
+        });
         ProductosMenu.add(EliminarProducto);
 
         jMenuBar1.add(ProductosMenu);
@@ -156,13 +161,25 @@ public class FachadaI extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarProductoActionPerformed
-        MostrarMenu productoMenu = new MostrarMenu();
-        productoMenu.setVisible(true);
+        this.setVisible(false); 
+        MostrarMenu agregarP = new MostrarMenu(this, true); 
+        agregarP.setLocationRelativeTo(this);
+        agregarP.setVisible(true); 
     }//GEN-LAST:event_AgregarProductoActionPerformed
 
     private void ConsultarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarProductoActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false); 
+        MostrarMenu productoMenu = new MostrarMenu(this, true); 
+        productoMenu.setLocationRelativeTo(this);
+        productoMenu.setVisible(true); 
     }//GEN-LAST:event_ConsultarProductoActionPerformed
+
+    private void EliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarProductoActionPerformed
+        this.setVisible(false); 
+        MostrarMenu productoMenu = new MostrarMenu(this, true); 
+        productoMenu.setLocationRelativeTo(this);
+        productoMenu.setVisible(true); 
+    }//GEN-LAST:event_EliminarProductoActionPerformed
 
     /**
      * @param args the command line arguments

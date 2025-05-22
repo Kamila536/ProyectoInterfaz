@@ -1,11 +1,13 @@
 ObjetosNegocio\Producto.class
 persistencia\Productos.class
-Pruebas\AbarrotesPersistencia_00000252266_00000246835.class
 ObjetosNegocio\MovimientoEmpacado.class
 excepciones\PersistenciaException.class
 FachadaI$2.class
+MostrarMenu$5.class
 persistencia\MovimientosGranel.class
+FachadaI$4.class
 ObjetosServicio\Periodo.class
+MostrarMenu$3.class
 ObjetosNegocio\MovimientoGranel.class
 Presentacion\MenuPrincipal.class
 persistencia\IPersistenciaFachada.class
@@ -15,9 +17,11 @@ Presentacion\SistemaBiblioteca.class
 FachadaI.class
 ObjetosNegocio\ProductoEmpacado.class
 MostrarMenu$1.class
+MostrarMenu$4.class
 persistencia\ProductosGranel.class
 FachadaI$3.class
-FachadaI$3$1.class
+MostrarMenu$2.class
+FachadaI$4$1.class
 MostrarMenu.class
 ObjetosNegocio\ProductoGranel.class
 ObjetosNegocio\Movimiento.class

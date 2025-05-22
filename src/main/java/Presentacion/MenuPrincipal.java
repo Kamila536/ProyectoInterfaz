@@ -166,7 +166,9 @@ public class MenuPrincipal{
         System.out.println("== Eliminar producto ==");
     }
 
+    
     private void consultarCatalogo() {
+       
     System.out.println("== Consultar catálogo de productos ==");
 
     List<Producto> lista = productos.consultarTodos();

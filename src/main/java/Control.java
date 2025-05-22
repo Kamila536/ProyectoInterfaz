@@ -9,6 +9,7 @@ import persistencia.Productos;
  */
 public class Control {
     
+
     public class ControlProductos {
 
     private Productos inventario;
@@ -83,4 +84,5 @@ public class Control {
         return (p != null) ? p.toString() : "Producto no encontrado con clave: " + clave;
     }
     }
+
 }
