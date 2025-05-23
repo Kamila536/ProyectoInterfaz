@@ -34,16 +34,31 @@ public class FachadaI extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        ProductosMenu = new javax.swing.JMenu();
-        AgregarProducto = new javax.swing.JMenuItem();
-        ConsultarProducto = new javax.swing.JMenuItem();
-        EliminarProducto = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
+        productosMenu = new javax.swing.JMenu();
+        agregarPrMenu = new javax.swing.JMenuItem();
+        consultarPrMenu = new javax.swing.JMenuItem();
+        actualizarPrMenu = new javax.swing.JMenuItem();
+        eliminarPrMenu = new javax.swing.JMenuItem();
+        MovimientosMenu = new javax.swing.JMenu();
+        compraMenu = new javax.swing.JMenuItem();
+        ventaMenu = new javax.swing.JMenuItem();
+        InventarioMenu = new javax.swing.JMenu();
+        agregarInventario = new javax.swing.JMenuItem();
+        eliminarInventario = new javax.swing.JMenuItem();
+        actualizarInventario = new javax.swing.JMenuItem();
+        consultasMenu = new javax.swing.JMenu();
+        productoConsulta = new javax.swing.JMenu();
+        listCompleto = new javax.swing.JMenuItem();
+        porClaveConsulta = new javax.swing.JMenuItem();
+        porTipoUnidad = new javax.swing.JMenuItem();
+        inventarioConsulta = new javax.swing.JMenu();
+        todoProductos = new javax.swing.JMenuItem();
+        productosGranelConsultas = new javax.swing.JMenuItem();
+        registroVentasMenu = new javax.swing.JMenuItem();
+        registroComprasMenu = new javax.swing.JMenuItem();
+        ventasPeriodoMenu = new javax.swing.JMenuItem();
+        comprasPeriodoMenu = new javax.swing.JMenuItem();
+        salir = new javax.swing.JMenu();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -88,55 +103,99 @@ public class FachadaI extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
-        jMenu1.setText("Inicio");
-        jMenuBar1.add(jMenu1);
+        productosMenu.setText("Productos");
 
-        ProductosMenu.setText("Productos");
+        agregarPrMenu.setText("Agregar");
+        productosMenu.add(agregarPrMenu);
 
-        AgregarProducto.setText("Agregar");
-        AgregarProducto.addActionListener(new java.awt.event.ActionListener() {
+        consultarPrMenu.setText("Consultar");
+        productosMenu.add(consultarPrMenu);
+
+        actualizarPrMenu.setText("Actualizar");
+        productosMenu.add(actualizarPrMenu);
+
+        eliminarPrMenu.setText("Eliminar");
+        productosMenu.add(eliminarPrMenu);
+
+        jMenuBar1.add(productosMenu);
+
+        MovimientosMenu.setText("Movimientos");
+
+        compraMenu.setText("Compra");
+        compraMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AgregarProductoActionPerformed(evt);
+                compraMenuActionPerformed(evt);
             }
         });
-        ProductosMenu.add(AgregarProducto);
+        MovimientosMenu.add(compraMenu);
 
-        ConsultarProducto.setText("Consultar");
-        ConsultarProducto.addActionListener(new java.awt.event.ActionListener() {
+        ventaMenu.setText("Venta");
+        ventaMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ConsultarProductoActionPerformed(evt);
+                ventaMenuActionPerformed(evt);
             }
         });
-        ProductosMenu.add(ConsultarProducto);
+        MovimientosMenu.add(ventaMenu);
 
-        EliminarProducto.setText("Eliminar");
-        EliminarProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EliminarProductoActionPerformed(evt);
-            }
-        });
-        ProductosMenu.add(EliminarProducto);
+        InventarioMenu.setText("Inventario");
 
-        jMenuBar1.add(ProductosMenu);
+        agregarInventario.setText("Agregar");
+        InventarioMenu.add(agregarInventario);
 
-        jMenu5.setText("Movimientos");
+        eliminarInventario.setText("Eliminar");
+        InventarioMenu.add(eliminarInventario);
 
-        jMenuItem4.setText("Compras");
-        jMenu5.add(jMenuItem4);
+        actualizarInventario.setText("Actualizar");
+        InventarioMenu.add(actualizarInventario);
 
-        jMenuItem5.setText("Ventas");
-        jMenu5.add(jMenuItem5);
+        MovimientosMenu.add(InventarioMenu);
 
-        jMenuItem6.setText("Inventariar");
-        jMenu5.add(jMenuItem6);
+        jMenuBar1.add(MovimientosMenu);
 
-        jMenuBar1.add(jMenu5);
+        consultasMenu.setText("Consultas");
 
-        jMenu6.setText("Salir");
-        jMenuBar1.add(jMenu6);
+        productoConsulta.setText("Producto");
+
+        listCompleto.setText("Listado Completo");
+        productoConsulta.add(listCompleto);
+
+        porClaveConsulta.setText("Por Clave");
+        productoConsulta.add(porClaveConsulta);
+
+        porTipoUnidad.setText("Por Tipo Unidad");
+        productoConsulta.add(porTipoUnidad);
+
+        consultasMenu.add(productoConsulta);
+
+        inventarioConsulta.setText("Inventario");
+
+        todoProductos.setText("Todos los productos");
+        inventarioConsulta.add(todoProductos);
+
+        productosGranelConsultas.setText("Productos granel");
+        inventarioConsulta.add(productosGranelConsultas);
+
+        registroVentasMenu.setText("Registro de ventas");
+        inventarioConsulta.add(registroVentasMenu);
+
+        registroComprasMenu.setText("Registro de compras");
+        inventarioConsulta.add(registroComprasMenu);
+
+        ventasPeriodoMenu.setText("Ventas dentro de un periodo dado");
+        inventarioConsulta.add(ventasPeriodoMenu);
+
+        comprasPeriodoMenu.setText("Compras dentro de un periodo dado");
+        inventarioConsulta.add(comprasPeriodoMenu);
+
+        consultasMenu.add(inventarioConsulta);
+
+        jMenuBar1.add(consultasMenu);
+
+        salir.setText("Salir");
+        jMenuBar1.add(salir);
 
         setJMenuBar(jMenuBar1);
 
@@ -160,26 +219,19 @@ public class FachadaI extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void AgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarProductoActionPerformed
-        this.setVisible(false); 
-        MostrarMenu agregarP = new MostrarMenu(this, true); 
+    private void ventaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventaMenuActionPerformed
+        this.setVisible(false);
+        MostrarMenu productoMenu = new MostrarMenu(this, true);
+        productoMenu.setLocationRelativeTo(this);
+        productoMenu.setVisible(true);
+    }//GEN-LAST:event_ventaMenuActionPerformed
+
+    private void compraMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compraMenuActionPerformed
+        this.setVisible(false);
+        MostrarMenu agregarP = new MostrarMenu(this, true);
         agregarP.setLocationRelativeTo(this);
-        agregarP.setVisible(true); 
-    }//GEN-LAST:event_AgregarProductoActionPerformed
-
-    private void ConsultarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarProductoActionPerformed
-        this.setVisible(false); 
-        MostrarMenu productoMenu = new MostrarMenu(this, true); 
-        productoMenu.setLocationRelativeTo(this);
-        productoMenu.setVisible(true); 
-    }//GEN-LAST:event_ConsultarProductoActionPerformed
-
-    private void EliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarProductoActionPerformed
-        this.setVisible(false); 
-        MostrarMenu productoMenu = new MostrarMenu(this, true); 
-        productoMenu.setLocationRelativeTo(this);
-        productoMenu.setVisible(true); 
-    }//GEN-LAST:event_EliminarProductoActionPerformed
+        agregarP.setVisible(true);
+    }//GEN-LAST:event_compraMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -224,23 +276,38 @@ public class FachadaI extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem AgregarProducto;
-    private javax.swing.JMenuItem ConsultarProducto;
-    private javax.swing.JMenuItem EliminarProducto;
-    private javax.swing.JMenu ProductosMenu;
+    private javax.swing.JMenu InventarioMenu;
+    private javax.swing.JMenu MovimientosMenu;
+    private javax.swing.JMenuItem actualizarInventario;
+    private javax.swing.JMenuItem actualizarPrMenu;
+    private javax.swing.JMenuItem agregarInventario;
+    private javax.swing.JMenuItem agregarPrMenu;
+    private javax.swing.JMenuItem compraMenu;
+    private javax.swing.JMenuItem comprasPeriodoMenu;
+    private javax.swing.JMenuItem consultarPrMenu;
+    private javax.swing.JMenu consultasMenu;
+    private javax.swing.JMenuItem eliminarInventario;
+    private javax.swing.JMenuItem eliminarPrMenu;
+    private javax.swing.JMenu inventarioConsulta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuItem listCompleto;
+    private javax.swing.JMenuItem porClaveConsulta;
+    private javax.swing.JMenuItem porTipoUnidad;
+    private javax.swing.JMenu productoConsulta;
+    private javax.swing.JMenuItem productosGranelConsultas;
+    private javax.swing.JMenu productosMenu;
+    private javax.swing.JMenuItem registroComprasMenu;
+    private javax.swing.JMenuItem registroVentasMenu;
+    private javax.swing.JMenu salir;
+    private javax.swing.JMenuItem todoProductos;
+    private javax.swing.JMenuItem ventaMenu;
+    private javax.swing.JMenuItem ventasPeriodoMenu;
     // End of variables declaration//GEN-END:variables
 }
