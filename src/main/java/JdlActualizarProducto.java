@@ -1,10 +1,10 @@
-
+import control.Control;
+import ObjetosNegocio.Producto;
+import excepciones.PersistenciaException;
+import javax.swing.JOptionPane;
 import javax.swing.JDialog;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 
 /**
  *
@@ -12,6 +12,7 @@ import javax.swing.JDialog;
  */
 public class JdlActualizarProducto extends javax.swing.JDialog {
 
+    private final Control control = new Control();
     private JDialog padre;
     /**
      * Creates new form NewJDialog
@@ -176,7 +177,27 @@ public class JdlActualizarProducto extends javax.swing.JDialog {
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
-        // TODO add your handling code here:
+    String clave = txtClave.getText().trim();
+    String nombre = txtNombre.getText().trim();
+    String unidad = txtUnidad.getText().trim();
+
+    if (clave.isEmpty() || nombre.isEmpty() || unidad.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    try {
+        // Crear el nuevo objeto producto con los datos actualizados
+        Producto productoActualizado = new Producto(clave, nombre, unidad, ""); // "" si no hay tipo
+        control.actualizarProducto(productoActualizado);
+
+        JOptionPane.showMessageDialog(this, "Producto actualizado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
+        padre.setVisible(true);
+
+    } catch (PersistenciaException e) {
+        JOptionPane.showMessageDialog(this, "Error al actualizar el producto:\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_AceptarActionPerformed
 
     private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed

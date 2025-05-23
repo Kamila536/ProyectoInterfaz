@@ -1,17 +1,19 @@
+import control.Control;
+import ObjetosNegocio.Producto;
+import excepciones.PersistenciaException;
 
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 
 /**
  *
  * @author Kamilala
  */
 public class JdlAgregarProducto extends javax.swing.JDialog {
-
+    
+    private final Control control = new Control();
     private JDialog padre;
     /**
      * Creates new form NewJDialog
@@ -36,8 +38,8 @@ public class JdlAgregarProducto extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         txtClave = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtUnidad = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -65,15 +67,15 @@ public class JdlAgregarProducto extends javax.swing.JDialog {
 
         jLabel1.setText("Ingrese la clave:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtNombreActionPerformed(evt);
             }
         });
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtUnidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtUnidadActionPerformed(evt);
             }
         });
 
@@ -96,8 +98,8 @@ public class JdlAgregarProducto extends javax.swing.JDialog {
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                    .addComponent(txtUnidad, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
                     .addComponent(txtClave))
                 .addGap(118, 118, 118))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -116,11 +118,11 @@ public class JdlAgregarProducto extends javax.swing.JDialog {
                     .addComponent(jLabel1))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addContainerGap(68, Short.MAX_VALUE))
         );
@@ -179,7 +181,49 @@ public class JdlAgregarProducto extends javax.swing.JDialog {
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
-        // TODO add your handling code here:
+    String clave = txtClave.getText().trim();
+    String nombre = txtNombre.getText().trim();
+    String unidad = txtUnidad.getText().trim();
+    String tipo = "G"; // Forzamos que todos los productos sean granel
+
+
+
+    // Validación básica
+    if (clave.isEmpty() || nombre.isEmpty() || unidad.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    try {
+        // Crear el producto
+        Producto producto = new Producto(clave, nombre, tipo, unidad);
+
+        control.agregarProducto(producto);
+
+         // Mostrar los datos capturados
+        String mensaje = String.format(
+            "Producto agregado correctamente:\n\nClave: %s\nNombre: %s\nUnidad: %s",
+            clave, nombre, unidad
+        );
+        JOptionPane.showMessageDialog(this, mensaje, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+
+        this.dispose(); // Cerrar el diálogo
+        padre.setVisible(true); // Mostrar ventana padre
+
+    } catch (PersistenciaException e) {
+         if (e.getMessage().toLowerCase().contains("clave")) {
+        JOptionPane.showMessageDialog(this, 
+            "La clave ya existe. Por favor, intente con otra clave.", 
+            "Clave duplicada", 
+            JOptionPane.WARNING_MESSAGE);
+    } else {
+        JOptionPane.showMessageDialog(this, 
+            "Error al agregar el producto:\n" + e.getMessage(), 
+            "Error", 
+            JOptionPane.ERROR_MESSAGE);
+    }
+    }
     }//GEN-LAST:event_AceptarActionPerformed
 
     private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
@@ -188,23 +232,23 @@ public class JdlAgregarProducto extends javax.swing.JDialog {
 
     private void ResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetearActionPerformed
         txtClave.setText("");
-        jTextField1.setText("");
-        jTextField2.setText("");
+        txtNombre.setText("");
+        txtUnidad.setText("");
     }//GEN-LAST:event_ResetearActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtUnidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUnidadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtUnidadActionPerformed
 
     /**
      * @param args the command line arguments
      */
     
-    
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Aceptar;
@@ -215,9 +259,9 @@ public class JdlAgregarProducto extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField txtClave;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtUnidad;
     // End of variables declaration//GEN-END:variables
 }

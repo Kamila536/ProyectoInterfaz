@@ -86,31 +86,31 @@ public class Producto {
     // Valida el formato de la clave y su coherencia con el tipo
     private boolean esClaveValida(String clave, String tipo) {
         if (clave == null || !clave.matches("^[A-Za-z]{2}\\d{3}$")) {
-            return false;
-        }
+        return false;
+    }
 
-        String prefijo = clave.substring(0, 2);
-        String numeroStr = clave.substring(2);
+    String prefijo = clave.substring(0, 2);
+    String numeroStr = clave.substring(2);
 
-        // Validar prefijo
-        if (!prefijo.equals("EM") && !prefijo.equals("GR")) {
-            return false;
-        }
+    // Validar prefijo
+    if (!prefijo.equals("EM") && !prefijo.equals("GR")) {
+        return false;
+    }
 
-        // Validar prefijo-tipo
-        if ((prefijo.equals("EM") && !tipo.equals("empacado")) ||
-            (prefijo.equals("GR") && !tipo.equals("granel"))) {
-            return false;
-        }
+    // Validar prefijo-tipo
+    if ((prefijo.equals("EM") && !tipo.equals("E")) ||
+        (prefijo.equals("GR") && !tipo.equals("G"))) {
+        return false;
+    }
 
-        // Validar que sean 3 dígitos numéricos
-        try {
-            Integer.valueOf(numeroStr);
-        } catch (NumberFormatException e) {
-            return false;
-        }
+    // Validar que sean 3 dígitos numéricos
+    try {
+        Integer.valueOf(numeroStr);
+    } catch (NumberFormatException e) {
+        return false;
+    }
 
-        return true;
+    return true;    
     }
 
     // Actualiza contadores si la clave es mayor al actual

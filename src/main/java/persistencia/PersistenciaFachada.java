@@ -1,98 +1,164 @@
-
 package persistencia;
 
-import ObjetosNegocio.MovimientoGranel;
+import ObjetosNegocio.*;
 import ObjetosServicio.Fecha;
-import ObjetosServicio.Periodo;
 import excepciones.PersistenciaException;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
+
 /**
- *
- * @author Kamilala
+ * 
+ * @author 52644
  */
+
 public class PersistenciaFachada {
-   
 
-    public class PersistenciaCompras {
-        private final List<MovimientoGranel> compras;
+    private final Productos productos;
+    private final ProductosGranel productosGranel;
+    private final MovimientosGranel movimientosGranel;
 
-        public PersistenciaCompras() {
-            this.compras = new ArrayList<>();
-        }
-
-        public void registrarCompra(MovimientoGranel movimiento) throws PersistenciaException {
-            if (movimiento == null) {
-                throw new PersistenciaException("El movimiento de compra no puede ser nulo.");
-        }
-
-            Fecha hoy = new Fecha();
-            Fecha fechaMovimiento = movimiento.getFecha();
-
-            if (fechaMovimiento.getMes() != hoy.getMes() || 
-                fechaMovimiento.getAnho() != hoy.getAnho() || 
-                fechaMovimiento.compareTo(hoy) > 0) {
-                throw new PersistenciaException("La fecha del movimiento debe estar en el mes actual y no ser futura.");
-        }
-
-        boolean existe = compras.stream()
-            .anyMatch(m -> m.getProductoGranel().getClave().equals(movimiento.getProductoGranel().getClave())
-                        && m.getFecha().equals(fechaMovimiento));
-
-        if (existe) {
-            throw new PersistenciaException("Ya existe una compra registrada para ese producto y fecha.");
-        }
-
-        movimiento.setProcesado(false);
-        compras.add(movimiento);
+    public PersistenciaFachada() {
+        this.productos = new Productos();
+        this.productosGranel = new ProductosGranel();
+        this.movimientosGranel = new MovimientosGranel();
     }
 
-    public List<MovimientoGranel> consultarCompras() {
-        return new ArrayList<>(compras);
+    // Requisito 15
+    public void agregarProducto(Producto producto) throws PersistenciaException {
+        productos.agregar(producto);
     }
 
-    public List<MovimientoGranel> consultarComprasPorPeriodo(Periodo periodo) {
-        return compras.stream()
-                .filter(m -> periodo.contiene(m.getFecha()))
-                .collect(Collectors.toList());
-    }
-    
-    }
-    public class PersistenciaVentas {
-    private final List<MovimientoGranel> ventas;
-
-    public PersistenciaVentas() {
-        this.ventas = new ArrayList<>();
+    // Requisito 16
+    public Producto consultarProductoPorClave(String clave) throws PersistenciaException {
+        Producto producto = productos.consultarPorClave(clave);
+        if (producto == null)
+            throw new PersistenciaException("Producto no encontrado con clave: " + clave);
+        return producto;
     }
 
+    // Requisito 17
+    public void actualizarProducto(Producto producto) throws PersistenciaException {
+        consultarProductoPorClave(producto.getClave()); // para validar existencia
+        productos.actualizar(producto);
+    }
+
+    // Requisito 18
+    public void eliminarProducto(String clave) throws PersistenciaException {
+        consultarProductoPorClave(clave); // para validar existencia
+        productos.eliminar(clave);
+    }
+
+    // Requisito 19
+    public List<Producto> consultarCatalogo(String tipo, String unidad) {
+        return productos.consultarConFiltros(tipo, unidad);
+    }
+
+    // Requisito 20
+    public void registrarCompra(MovimientoGranel movimiento) throws PersistenciaException {
+        if (productos.consultarPorClave(movimiento.getProductoGranel().getClave()) == null)
+            throw new PersistenciaException("No se puede registrar compra. El producto no está en el catálogo.");
+
+        movimientosGranel.registrarCompra(movimiento);
+    }
+
+    // Requisito 21
     public void registrarVenta(MovimientoGranel movimiento) throws PersistenciaException {
-        if (movimiento == null) {
-            throw new PersistenciaException("El movimiento de venta no puede ser nulo.");
-        }
+        if (productos.consultarPorClave(movimiento.getProductoGranel().getClave()) == null)
+            throw new PersistenciaException("No se puede registrar venta. El producto no está en el catálogo.");
 
-        Fecha hoy = new Fecha();
-        Fecha fechaMovimiento = movimiento.getFecha();
-
-        if (fechaMovimiento.getMes() != hoy.getMes() ||
-            fechaMovimiento.getAnho() != hoy.getAnho() ||
-            fechaMovimiento.compareTo(hoy) > 0) {
-            throw new PersistenciaException("La fecha del movimiento debe estar en el mes actual y no ser futura.");
-        }
-
-        movimiento.setProcesado(false);
-        ventas.add(movimiento);
+        movimientosGranel.registrarVenta(movimiento);
     }
 
-    public List<MovimientoGranel> consultarVentas() {
-        return new ArrayList<>(ventas);
+    // Requisito 22
+    public MovimientoGranel consultarCompraPorClave(String clave) throws PersistenciaException {
+        return movimientosGranel.consultarCompras().stream()
+                .filter(m -> m.getProductoGranel().getClave().equals(clave))
+                .findFirst()
+                .orElseThrow(() -> new PersistenciaException("No existe compra registrada con esa clave."));
     }
 
-    public List<MovimientoGranel> consultarVentasPorPeriodo(Periodo periodo) {
-        return ventas.stream()
-                .filter(m -> periodo.contiene(m.getFecha()))
+    // Requisito 23
+    public List<ProductoGranel> inventariarCompras() throws PersistenciaException {
+        List<MovimientoGranel> compras = movimientosGranel.consultarCompras().stream()
+                .filter(m -> !m.isProcesado())
                 .collect(Collectors.toList());
+
+        for (MovimientoGranel mov : compras) {
+            ProductoGranel prod = mov.getProductoGranel();
+            ProductoGranel inventario = productosGranel.consultarPorClave(prod.getClave());
+
+            double cantidadNueva = prod.getCantidad();
+            double total = inventario != null ? inventario.getCantidad() + cantidadNueva : cantidadNueva;
+
+            String unidad = prod.getUnidad();
+            if ((unidad.equals("KG") && total > 1500) || (unidad.equals("L") && total > 3000)) {
+                continue;
+            }
+
+            if (inventario != null) {
+                inventario.setCantidad(total);
+                productosGranel.actualizar(inventario);
+            } else {
+                productosGranel.agregar(prod);
+            }
+
+            mov.setProcesado(true);
+        }
+
+        return productosGranel.consultarTodos();
+    }
+
+    // Requisito 24
+    public List<ProductoGranel> desinventariarVentas() throws PersistenciaException {
+        List<MovimientoGranel> ventas = movimientosGranel.consultarVentas().stream()
+                .filter(m -> !m.isProcesado())
+                .collect(Collectors.toList());
+
+        for (MovimientoGranel mov : ventas) {
+            ProductoGranel prod = mov.getProductoGranel();
+            ProductoGranel inventario = productosGranel.consultarPorClave(prod.getClave());
+
+            if (inventario == null || inventario.getCantidad() < prod.getCantidad()) {
+                continue;
+            }
+
+            double nuevaCantidad = inventario.getCantidad() - prod.getCantidad();
+
+            if (nuevaCantidad == 0) {
+                productosGranel.eliminar(prod.getClave());
+            } else {
+                inventario.setCantidad(nuevaCantidad);
+                productosGranel.actualizar(inventario);
+            }
+
+            mov.setProcesado(true);
+        }
+
+        return productosGranel.consultarTodos();
+    }
+
+    // Requisito 25
+    public List<ProductoGranel> mostrarInventario() {
+        return productosGranel.consultarTodos();
+    }
+
+    // Requisito 26
+    public List<MovimientoGranel> mostrarCompras(Fecha inicio, Fecha fin) {
+        if (inicio != null && fin != null) {
+            return movimientosGranel.consultarComprasPorPeriodo(inicio, fin);
+        } else {
+            return movimientosGranel.consultarCompras();
+        }
+    }
+
+    // Requisito 27
+    public List<MovimientoGranel> mostrarVentas(Fecha inicio, Fecha fin) {
+        if (inicio != null && fin != null) {
+            return movimientosGranel.consultarVentasPorPeriodo(inicio, fin);
+        } else {
+            return movimientosGranel.consultarVentas();
+        }
     }
 }
-    
-}
+

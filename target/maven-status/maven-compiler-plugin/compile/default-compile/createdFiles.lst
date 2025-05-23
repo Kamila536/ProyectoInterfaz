@@ -18,13 +18,12 @@ JdlFachada$6.class
 JdlActualizarInventario$4.class
 JdlActualizarInventario.class
 JdlAgregarProducto$4.class
-JdlFachada$16$1.class
+control\Control.class
 JdlAgregarProducto$1.class
 JdlActualizarProducto$6.class
 JdlFachada$8.class
 JdlActualizarInventario$1.class
 JdlVentasPorPeriodo.class
-JdlFachada$16.class
 JdlInventarioEliminar$3.class
 JdlRegistrarVenta$1.class
 JdlPorClave$2.class
@@ -47,7 +46,6 @@ JdlActualizarInventario$3.class
 JdlEliminarProducto$3.class
 persistencia\Productos.class
 JdlEliminarProducto.class
-Control$ControlProductos.class
 JdlAgregarProducto.class
 JdlFachada.class
 JdlPorTipoUnidad$2.class
@@ -56,14 +54,12 @@ JdlFachada$7.class
 JdlAgregarProducto$3.class
 JdlInventarioEliminar$1.class
 JdlComprasPorPeriodo$1.class
-JdlFachada$15.class
 JdlInventarioEliminar$4.class
-Control.class
+JdlFachada$14$1.class
 JdlFachada$12.class
 JdlComprasPorPeriodo$4.class
 JdlActualizarProducto$3.class
 JdlVentasPorPeriodo$2.class
-persistencia\PersistenciaFachada$PersistenciaVentas.class
 ObjetosNegocio\Producto.class
 excepciones\PersistenciaException.class
 JdlFachada$5.class
@@ -79,7 +75,6 @@ JdlFachada$4.class
 JdlFachada$13.class
 JdlActualizarProducto$2.class
 JdlAgregarProducto$5.class
-persistencia\PersistenciaFachada$PersistenciaCompras.class
 JdlComprasPorPeriodo$3.class
 JdlVentasPorPeriodo$4.class
 JdlPorClave$4.class
