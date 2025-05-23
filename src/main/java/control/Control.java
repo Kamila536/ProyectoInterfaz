@@ -45,6 +45,10 @@ public class Control {
         return fachada.consultarCatalogo(tipo, unidad);
     }
 
+    public Producto obtenerProducto(String clave) throws PersistenciaException {
+    return fachada.consultarProductoPorClave(clave);
+    }
+
     // --- Métodos de control para Movimientos (compras/ventas) ---
 
     public void registrarCompra(MovimientoGranel movimiento) throws PersistenciaException {

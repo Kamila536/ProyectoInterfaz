@@ -187,8 +187,16 @@ public class JdlActualizarProducto extends javax.swing.JDialog {
     }
 
     try {
-        // Crear el nuevo objeto producto con los datos actualizados
-        Producto productoActualizado = new Producto(clave, nombre, unidad, ""); // "" si no hay tipo
+        // Buscar producto existente para conservar el tipo
+        Producto productoExistente = control.obtenerProducto(clave);
+        if (productoExistente == null) {
+            JOptionPane.showMessageDialog(this, "No existe un producto con esa clave.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Crear el objeto actualizado con el tipo original
+        Producto productoActualizado = new Producto(clave, nombre, unidad, productoExistente.getTipo());
+
         control.actualizarProducto(productoActualizado);
 
         JOptionPane.showMessageDialog(this, "Producto actualizado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -198,6 +206,8 @@ public class JdlActualizarProducto extends javax.swing.JDialog {
     } catch (PersistenciaException e) {
         JOptionPane.showMessageDialog(this, "Error al actualizar el producto:\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
+
+
     }//GEN-LAST:event_AceptarActionPerformed
 
     private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
