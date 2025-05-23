@@ -31,9 +31,11 @@ public class ProductoGranel extends Producto {
     }
 
     // Métodos de acceso (getters y setters)
+  
     public double getCantidad() {
-        return cantidad;
+    return this.cantidad;
     }
+
     
      public static void desplegarProductosGranel(ProductoGranel... productosGranel) {
         for (ProductoGranel producto : productosGranel) {

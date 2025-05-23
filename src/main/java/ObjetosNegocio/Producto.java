@@ -15,13 +15,15 @@ public class Producto {
         this("Producto por defecto", "E", "Pz");
     }
 
-    // Constructor q inicialice los atributos
     public Producto(String nombre, String tipo, String unidad) {
-        setNombre(nombre);
-        setTipo(tipo);
-        setUnidad(unidad);
-        this.clave = generarClaveAutomatica();
-    }
+    setNombre(nombre);
+    setTipo(tipo);                // primero asigno tipo
+    this.clave = generarClaveAutomatica(tipo);  // genero clave en base a tipo
+    setUnidad(unidad);
+}
+
+
+
 
     // Constructor completo (con validación de clave)
     public Producto(String clave, String nombre, String tipo, String unidad) {
@@ -77,11 +79,13 @@ public class Producto {
     }
 
     // Genera clave automática según el tipo (EM001, GR001, etc.)
-    private String generarClaveAutomatica() {
-        String prefijo = tipo.equals("E") ? "EM" : "GR";
-        int numero = tipo.equals("E") ? contadorEM++ : contadorGR++;
-        return String.format("%s%03d", prefijo, numero);
-    }
+    private String generarClaveAutomatica(String tipo) {
+    String prefijo = tipo.equals("E") ? "EM" : "GR";
+    int numero = tipo.equals("E") ? contadorEM++ : contadorGR++;
+    return String.format("%s%03d", prefijo, numero);
+}
+
+
 
     // Valida el formato de la clave y su coherencia con el tipo
     private boolean esClaveValida(String clave, String tipo) {
@@ -130,12 +134,16 @@ public class Producto {
     }
 
     public void setClave(String clave) {
-        if (!esClaveValida(clave, this.tipo)) {
-            throw new IllegalArgumentException("Clave inválida o no coincide con tipo");
-        }
-        this.clave = clave;
-        actualizarContadores(clave);
+    if (this.tipo == null) {
+        throw new IllegalStateException("Debe establecer el tipo antes de asignar la clave.");
     }
+    if (!esClaveValida(clave, this.tipo)) {
+        throw new IllegalArgumentException("Clave inválida o no coincide con tipo.");
+    }
+    this.clave = clave;
+    actualizarContadores(clave);
+}
+
 
     public String getNombre() {
         return nombre;
@@ -153,16 +161,13 @@ public class Producto {
     }
 
     public void setTipo(String tipo) {
-        if (!tipo.equals("E") && !tipo.equals("G")) {
-            throw new IllegalArgumentException("Tipo debe ser 'E' o 'G'");
-        }
-        if (this.clave != null &&
-            ((tipo.equals("E") && !clave.startsWith("EM")) ||
-             (tipo.equals("G") && !clave.startsWith("GR")))) {
-            throw new IllegalArgumentException("Tipo no coincide con prefijo de clave");
-        }
-        this.tipo = tipo;
+    if (!tipo.equals("E") && !tipo.equals("G")) {
+        throw new IllegalArgumentException("Tipo debe ser 'E' o 'G'");
     }
+    this.tipo = tipo;
+}
+
+
 
     public String getUnidad() {
         return unidad;

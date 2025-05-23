@@ -81,7 +81,7 @@ public class Pruebas03 {
         // Registrar compra válida
         try {
             if (productoGranel != null) {
-                MovimientoGranel compra1 = new MovimientoGranel("MC001", fechaHoy, false, productoGranel);
+                MovimientoGranel compra1 = new MovimientoGranel("MC001", fechaHoy, false, productoGranel,0.0);
                 compras.registrarCompra(compra1);
                 System.out.println("Compra 1 registrada exitosamente.");
             }
@@ -92,7 +92,7 @@ public class Pruebas03 {
         // Registrar compra duplicada (mismo producto y fecha)
         try {
             if (productoGranel != null) {
-                MovimientoGranel compra2 = new MovimientoGranel("MC002", fechaHoy, false, productoGranel);
+                MovimientoGranel compra2 = new MovimientoGranel("MC002", fechaHoy, false, productoGranel,0.0);
                 compras.registrarCompra(compra2);
                 System.out.println("Compra 2 registrada exitosamente (esto no debería pasar).");
             }

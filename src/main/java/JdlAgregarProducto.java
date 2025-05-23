@@ -1,6 +1,6 @@
 import control.Control;
-import ObjetosNegocio.Producto;
 import excepciones.PersistenciaException;
+import javax.swing.JComboBox;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -15,6 +15,8 @@ public class JdlAgregarProducto extends javax.swing.JDialog {
     
     private final Control control;
     private JDialog padre;
+
+
     /**
      * Creates new form NewJDialog
      */
@@ -184,46 +186,39 @@ public class JdlAgregarProducto extends javax.swing.JDialog {
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
     String clave = txtClave.getText().trim().toUpperCase();
     String nombre = txtNombre.getText().trim();
-    String unidad = txtUnidad.getText().trim().toUpperCase();
-    String tipo = "G"; // Forzamos que todos los productos sean granel
+    String unidad = txtUnidad.getText().trim();
 
+    String tipo = "G"; // Por ejemplo, si quieres que todos sean granel
 
-
-    // Validación básica
     if (clave.isEmpty() || nombre.isEmpty() || unidad.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
         return;
     }
 
     try {
-        // Crear el producto
-        Producto producto = new Producto(clave, nombre, tipo, unidad);
+        control.crearYAgregarProducto(clave, nombre, tipo, unidad);
 
-        control.agregarProducto(producto);
-
-         // Mostrar los datos capturados
         String mensaje = String.format(
             "Producto agregado correctamente:\n\nClave: %s\nNombre: %s\nUnidad: %s",
             clave, nombre, unidad
         );
         JOptionPane.showMessageDialog(this, mensaje, "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-
-        this.dispose(); // Cerrar el diálogo
-        padre.setVisible(true); // Mostrar ventana padre
+        this.dispose();
+        padre.setVisible(true);
 
     } catch (PersistenciaException e) {
-         if (e.getMessage().toLowerCase().contains("clave")) {
-        JOptionPane.showMessageDialog(this, 
-            "La clave ya existe. Por favor, intente con otra clave.", 
-            "Clave duplicada", 
-            JOptionPane.WARNING_MESSAGE);
-    } else {
-        JOptionPane.showMessageDialog(this, 
-            "Error al agregar el producto:\n" + e.getMessage(), 
-            "Error", 
-            JOptionPane.ERROR_MESSAGE);
-    }
+        if (e.getMessage().toLowerCase().contains("clave")) {
+            JOptionPane.showMessageDialog(this,
+                "La clave ya existe. Por favor, intente con otra clave.",
+                "Clave duplicada",
+                JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this,
+                "Error al agregar el producto:\n" + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
     }
     }//GEN-LAST:event_AceptarActionPerformed
 

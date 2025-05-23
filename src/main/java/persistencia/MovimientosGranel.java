@@ -3,6 +3,7 @@ package persistencia;
 
     
 import ObjetosNegocio.MovimientoGranel;
+import ObjetosNegocio.ProductoGranel;
 import ObjetosServicio.Fecha;
 import excepciones.PersistenciaException;
 import java.util.ArrayList;
@@ -132,5 +133,28 @@ public class MovimientosGranel {
                 .filter(m -> m.getFecha().compareTo(fechaInicio) >= 0 && m.getFecha().compareTo(fechaFin) <= 0)
                 .collect(Collectors.toList());
     }
+    public void procesarMovimientos() {
+    for (MovimientoGranel movimiento : movimientosCompra) {
+        if (!movimiento.isProcesado()) {
+            ProductoGranel p = movimiento.getProductoGranel();
+            p.setCantidad(p.getCantidad() + movimiento.getCantidad());
+            movimiento.setProcesado(true);
+        }
+    }
+
+    for (MovimientoGranel movimiento : movimientosVenta) {
+        if (!movimiento.isProcesado()) {
+            ProductoGranel p = movimiento.getProductoGranel();
+            double cantidadActual = p.getCantidad();
+            if (cantidadActual >= movimiento.getCantidad()) {
+                p.setCantidad(cantidadActual - movimiento.getCantidad());
+                movimiento.setProcesado(true);
+            } else {
+                System.out.println("No hay suficiente inventario para procesar venta de: " + p.getClave());
+            }
+        }
+    }
+}
+
 
 }

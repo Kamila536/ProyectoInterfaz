@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class MovimientoGranel extends Movimiento {
     private ProductoGranel productoGranel;
-
+    private double cantidad;
     // Constructor por defecto
     public MovimientoGranel(String aT001, LocalDate now) {
         super();
@@ -13,14 +13,23 @@ public class MovimientoGranel extends Movimiento {
     }
 
     // Constructor con parámetros
-    public MovimientoGranel(String cveMovimiento, Fecha fecha, boolean procesado, ProductoGranel productoGranel) {
-        super(cveMovimiento, fecha, procesado); // Llama al constructor de Movimiento
-        if (productoGranel == null) {
-            throw new IllegalArgumentException("El producto a granel no puede ser nulo.");
-        }
-        this.productoGranel = productoGranel;
+    public MovimientoGranel(String cveMovimiento, Fecha fecha, boolean procesado, ProductoGranel productoGranel, double cantidad) {
+    super(cveMovimiento, fecha, procesado);
+    if (productoGranel == null) {
+        throw new IllegalArgumentException("El producto a granel no puede ser nulo.");
+    }
+    this.productoGranel = productoGranel;
+    this.cantidad = cantidad;
     }
 
+    public double getCantidad() {
+    return cantidad;
+    }
+
+    public void setCantidad(double cantidad) {
+    this.cantidad = cantidad;
+    }
+    
     public static void desplegarMovimientosGranel(MovimientoGranel... movimientos) {
         for (MovimientoGranel movimiento : movimientos) {
             if (movimiento != null) {

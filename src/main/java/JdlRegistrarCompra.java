@@ -1,4 +1,6 @@
 
+import control.Control;
+import excepciones.PersistenciaException;
 import javax.swing.JDialog;
 
 /*
@@ -16,11 +18,14 @@ public class JdlRegistrarCompra extends javax.swing.JDialog {
     /**
      * Creates new form NewJDialog
      */
-    public JdlRegistrarCompra(JDialog parent, boolean modal) {
-        super(parent, modal);
-        this.padre = parent;
-        initComponents();
-    }
+    private Control control;
+
+    public JdlRegistrarCompra(JDialog parent, boolean modal, Control control) {
+    super(parent, modal);
+    this.padre = parent;
+    this.control = control;
+    initComponents();
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,6 +41,8 @@ public class JdlRegistrarCompra extends javax.swing.JDialog {
         txtClave = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtClave1 = new javax.swing.JTextField();
         Aceptar = new javax.swing.JButton();
         Resetear = new javax.swing.JButton();
 
@@ -50,31 +57,37 @@ public class JdlRegistrarCompra extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 
-        txtClave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtClaveActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("Ingrese la clave:");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Registrar Compra");
 
+        jLabel3.setText("Ingrese la cantidad:");
+
+        txtClave1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClave1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(67, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(118, 118, 118))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(103, 103, 103)
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(48, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtClave1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(118, 118, 118))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,7 +98,11 @@ public class JdlRegistrarCompra extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtClave1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         Aceptar.setText("Aceptar");
@@ -142,17 +159,47 @@ public class JdlRegistrarCompra extends javax.swing.JDialog {
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AceptarActionPerformed
+          String clave = txtClave.getText().trim();
+        String cantidadStr = txtClave1.getText().trim();
 
-    private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtClaveActionPerformed
+        if (clave.isEmpty() || cantidadStr.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        return;
+        }
+
+    double cantidad;
+    try {
+        cantidad = Double.parseDouble(cantidadStr);
+        if (cantidad <= 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "La cantidad debe ser un número positivo.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Cantidad inválida, debe ser un número.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    try {
+        control.registrarCompra(clave, cantidad);
+        javax.swing.JOptionPane.showMessageDialog(this, "Compra registrada exitosamente.", "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        // Limpiar campos o cerrar ventana
+        txtClave.setText("");
+        txtClave1.setText("");
+        this.dispose();
+        padre.setVisible(true);
+    } catch (PersistenciaException ex) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error al registrar compra", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_AceptarActionPerformed
 
     private void ResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetearActionPerformed
         txtClave.setText("");
         
     }//GEN-LAST:event_ResetearActionPerformed
+
+    private void txtClave1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClave1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClave1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,7 +213,9 @@ public class JdlRegistrarCompra extends javax.swing.JDialog {
     private javax.swing.JButton Resetear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtClave;
+    private javax.swing.JTextField txtClave1;
     // End of variables declaration//GEN-END:variables
 }

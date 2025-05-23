@@ -3,8 +3,6 @@ import ObjetosNegocio.Producto;
 import control.Control;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -37,6 +35,9 @@ public class JdlFachada extends javax.swing.JDialog {
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem2 = new javax.swing.JRadioButtonMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -62,13 +63,20 @@ public class JdlFachada extends javax.swing.JDialog {
         registroComprasMenu = new javax.swing.JMenuItem();
         ventasPeriodoMenu = new javax.swing.JMenuItem();
         comprasPeriodoMenu = new javax.swing.JMenuItem();
-        salir = new javax.swing.JMenu();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
 
         jMenu4.setText("Edit");
         jMenuBar2.add(jMenu4);
+
+        jMenuItem1.setText("jMenuItem1");
+
+        jRadioButtonMenuItem1.setSelected(true);
+        jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
+
+        jRadioButtonMenuItem2.setSelected(true);
+        jRadioButtonMenuItem2.setText("jRadioButtonMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Inventario Fachada");
@@ -107,7 +115,7 @@ public class JdlFachada extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
 
         productosMenu.setText("Productos");
@@ -211,6 +219,11 @@ public class JdlFachada extends javax.swing.JDialog {
         inventarioConsulta.add(todoProductos);
 
         registroVentasMenu.setText("Registro de ventas");
+        registroVentasMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registroVentasMenuActionPerformed(evt);
+            }
+        });
         inventarioConsulta.add(registroVentasMenu);
 
         registroComprasMenu.setText("Registro de compras");
@@ -235,14 +248,6 @@ public class JdlFachada extends javax.swing.JDialog {
         consultasMenu.add(inventarioConsulta);
 
         jMenuBar1.add(consultasMenu);
-
-        salir.setText("Salir");
-        salir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                salirActionPerformed(evt);
-            }
-        });
-        jMenuBar1.add(salir);
 
         setJMenuBar(jMenuBar1);
 
@@ -275,9 +280,9 @@ public class JdlFachada extends javax.swing.JDialog {
 
     private void compraMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compraMenuActionPerformed
         this.setVisible(false);
-        JdlRegistrarCompra RegistrarcompraMenu = new JdlRegistrarCompra(this, true);
-        RegistrarcompraMenu.setLocationRelativeTo(this);
-        RegistrarcompraMenu.setVisible(true);
+        JdlRegistrarCompra dialog = new JdlRegistrarCompra(this, true, control);
+        dialog.setVisible(true);
+
     }//GEN-LAST:event_compraMenuActionPerformed
 
     private void agregarPrMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarPrMenuActionPerformed
@@ -373,6 +378,10 @@ public class JdlFachada extends javax.swing.JDialog {
 
     }//GEN-LAST:event_todoProductosActionPerformed
 
+    private void registroVentasMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroVentasMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registroVentasMenuActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -437,14 +446,16 @@ public class JdlFachada extends javax.swing.JDialog {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
     private javax.swing.JMenuItem porClaveConsulta;
     private javax.swing.JMenuItem porTipoUnidad;
     private javax.swing.JMenu productoConsulta;
     private javax.swing.JMenu productosMenu;
     private javax.swing.JMenuItem registroComprasMenu;
     private javax.swing.JMenuItem registroVentasMenu;
-    private javax.swing.JMenu salir;
     private javax.swing.JMenuItem todoProductos;
     private javax.swing.JMenuItem ventaMenu;
     private javax.swing.JMenuItem ventasPeriodoMenu;

@@ -25,9 +25,31 @@ public class Control {
 
     // --- Métodos de control para Productos (catálogo) ---
 
-    public void agregarProducto(Producto producto) throws PersistenciaException {
-        fachada.agregarProducto(producto);
+   public void crearYAgregarProducto(String clave, String nombre, String tipo, String unidad) throws PersistenciaException {
+    Producto producto;
+
+    // Instanciar el objeto adecuado y establecer el tipo primero
+    if (tipo.equals("G")) {
+        ProductoGranel pg = new ProductoGranel();
+        pg.setTipo(tipo);       // ✅ PRIMERO setTipo
+        pg.setCantidad(0.01);   // cantidad inicial
+        producto = pg;
+    } else if (tipo.equals("E")) {
+        producto = new Producto();
+        producto.setTipo(tipo); // ✅ PRIMERO setTipo
+    } else {
+        throw new PersistenciaException("Tipo inválido.");
     }
+
+    producto.setClave(clave);     // ✅ DESPUÉS de setTipo
+    producto.setNombre(nombre);
+    producto.setUnidad(unidad);
+
+    fachada.agregarProducto(producto);
+}
+
+
+
 
     public Producto consultarProducto(String clave) throws PersistenciaException {
         return fachada.consultarProductoPorClave(clave);
@@ -55,12 +77,12 @@ public class Control {
 
     // --- Métodos de control para Movimientos (compras/ventas) ---
 
-    public void registrarCompra(MovimientoGranel movimiento) throws PersistenciaException {
-        fachada.registrarCompra(movimiento);
+    public void registrarCompra(String clave, double cantidad) throws PersistenciaException {
+        fachada.registrarCompra(clave,cantidad);
     }
 
-    public void registrarVenta(MovimientoGranel movimiento) throws PersistenciaException {
-        fachada.registrarVenta(movimiento);
+    public void registrarVenta(String clave, double cantidad) throws PersistenciaException {
+        fachada.registrarVenta(clave,cantidad);
     }
 
     public MovimientoGranel consultarCompraPorClave(String clave) throws PersistenciaException {
@@ -85,7 +107,7 @@ public class Control {
         return fachada.desinventariarVentas();
     }
 
-    public List<ProductoGranel> mostrarInventario() {
+    public List<ProductoGranel> consultarInventario() {
         return fachada.mostrarInventario();
     }
 }
