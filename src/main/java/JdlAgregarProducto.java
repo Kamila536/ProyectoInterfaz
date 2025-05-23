@@ -182,9 +182,9 @@ public class JdlAgregarProducto extends javax.swing.JDialog {
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
-    String clave = txtClave.getText().trim();
+    String clave = txtClave.getText().trim().toUpperCase();
     String nombre = txtNombre.getText().trim();
-    String unidad = txtUnidad.getText().trim();
+    String unidad = txtUnidad.getText().trim().toUpperCase();
     String tipo = "G"; // Forzamos que todos los productos sean granel
 
 

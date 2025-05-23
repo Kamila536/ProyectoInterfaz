@@ -12,14 +12,17 @@ import javax.swing.JDialog;
  */
 public class JdlActualizarProducto extends javax.swing.JDialog {
 
-    private final Control control = new Control();
+    private final Control control;
     private JDialog padre;
     /**
      * Creates new form NewJDialog
      */
-    public JdlActualizarProducto(JDialog parent, boolean modal) {
-        super(parent, modal);
-        this.padre = parent;
+    
+
+    public JdlActualizarProducto(JDialog parent, boolean modal, Control control) {
+    super(parent, modal);
+    this.padre = parent;
+    this.control = control;
         initComponents();
     }
 
@@ -180,7 +183,8 @@ public class JdlActualizarProducto extends javax.swing.JDialog {
     String clave = txtClave.getText().trim();
     String nombre = txtNombre.getText().trim();
     String unidad = txtUnidad.getText().trim();
-
+    String tipo = "G";
+    
     if (clave.isEmpty() || nombre.isEmpty() || unidad.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         return;

@@ -289,14 +289,14 @@ public class JdlFachada extends javax.swing.JDialog {
 
     private void actualizarPrMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarPrMenuActionPerformed
         this.setVisible(false);
-        JdlActualizarProducto actualizarMenu = new JdlActualizarProducto(this, true);
+        JdlActualizarProducto actualizarMenu = new JdlActualizarProducto(this, true, control);
         actualizarMenu.setLocationRelativeTo(this);
         actualizarMenu.setVisible(true);
     }//GEN-LAST:event_actualizarPrMenuActionPerformed
 
     private void eliminarPrMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarPrMenuActionPerformed
         this.setVisible(false);
-        JdlEliminarProducto eliminarMenu = new JdlEliminarProducto(this, true);
+        JdlEliminarProducto eliminarMenu = new JdlEliminarProducto(this, true, control);
         eliminarMenu.setLocationRelativeTo(this);
         eliminarMenu.setVisible(true); 
     }//GEN-LAST:event_eliminarPrMenuActionPerformed

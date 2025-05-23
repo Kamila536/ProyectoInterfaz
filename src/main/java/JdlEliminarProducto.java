@@ -1,10 +1,11 @@
 
+import ObjetosNegocio.Producto;
+import control.Control;
+import excepciones.PersistenciaException;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 
 /**
  *
@@ -13,12 +14,14 @@ import javax.swing.JDialog;
 public class JdlEliminarProducto extends javax.swing.JDialog {
 
     private JDialog padre;
+    private Control control;
     /**
      * Creates new form NewJDialog
      */
-    public JdlEliminarProducto(JDialog parent, boolean modal) {
+    public JdlEliminarProducto(JDialog parent, boolean modal, Control control) {
         super(parent, modal);
         this.padre = parent;
+        this.control = control;
         initComponents();
     }
 
@@ -143,7 +146,39 @@ public class JdlEliminarProducto extends javax.swing.JDialog {
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
-        // TODO add your handling code here:
+        
+        String clave = txtClave.getText().trim().toUpperCase();
+        
+        
+    // Validación básica
+    if (clave.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Debe ingresar una clave.", "Campo vacío", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    try {
+        // Verificamos si el producto existe
+        Producto producto = control.consultarProducto(clave);
+
+        int confirmacion = JOptionPane.showConfirmDialog(this,
+            String.format("¿Está seguro que desea eliminar el producto?\n\nClave: %s\nNombre: %s\nUnidad: %s", 
+                producto.getClave(), producto.getNombre(), producto.getUnidad()),
+            "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            control.eliminarProducto(clave);
+            JOptionPane.showMessageDialog(this, "Producto eliminado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+            padre.setVisible(true);
+        }
+
+    } catch (PersistenciaException e) {
+        JOptionPane.showMessageDialog(this, 
+            "No se pudo eliminar el producto:\n" + e.getMessage(), 
+            "Error", 
+            JOptionPane.ERROR_MESSAGE);
+    }
+
     }//GEN-LAST:event_AceptarActionPerformed
 
     private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
