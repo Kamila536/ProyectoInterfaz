@@ -1,5 +1,7 @@
 
+import ObjetosNegocio.MovimientoGranel;
 import ObjetosNegocio.Producto;
+import ObjetosServicio.Fecha;
 import control.Control;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -227,6 +229,11 @@ public class JdlFachada extends javax.swing.JDialog {
         inventarioConsulta.add(registroVentasMenu);
 
         registroComprasMenu.setText("Registro de compras");
+        registroComprasMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registroComprasMenuActionPerformed(evt);
+            }
+        });
         inventarioConsulta.add(registroComprasMenu);
 
         ventasPeriodoMenu.setText("Ventas dentro de un periodo dado");
@@ -273,7 +280,7 @@ public class JdlFachada extends javax.swing.JDialog {
 
     private void ventaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventaMenuActionPerformed
         this.setVisible(false);
-        JdlRegistrarVenta RegistrarventaMenu = new JdlRegistrarVenta(this, true);
+        JdlRegistrarVenta RegistrarventaMenu = new JdlRegistrarVenta(this, true, control);
         RegistrarventaMenu.setLocationRelativeTo(this);
         RegistrarventaMenu.setVisible(true);
     }//GEN-LAST:event_ventaMenuActionPerformed
@@ -381,6 +388,36 @@ public class JdlFachada extends javax.swing.JDialog {
     private void registroVentasMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroVentasMenuActionPerformed
        
     }//GEN-LAST:event_registroVentasMenuActionPerformed
+
+    private void registroComprasMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroComprasMenuActionPerformed
+        try {
+        // Crear un rango amplio de fechas
+        Fecha inicio = new Fecha(1, 1, 2000); // Ejemplos desde el año 2000
+        Fecha fin = new Fecha(31, 12, 2100);  // hasta el año 2100
+
+        List<MovimientoGranel> compras = control.mostrarCompras(inicio, fin);
+
+        if (compras == null || compras.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "No hay compras registradas.", "Historial de compras", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        // Armar el mensaje
+        StringBuilder mensaje = new StringBuilder("Compras registradas:\n\n");
+        for (MovimientoGranel mov : compras) {
+            mensaje.append("Clave: ").append(mov.getProductoGranel().getClave())
+                   .append(" | Cantidad: ").append(mov.getCantidad())
+                   .append(" | Fecha: ").append(mov.getFecha().toString())
+                   .append("\n");
+        }
+
+        // Mostrar el mensaje
+        javax.swing.JOptionPane.showMessageDialog(this, mensaje.toString(), "Historial de Compras", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (Exception ex) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Error al obtener el historial: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_registroComprasMenuActionPerformed
 
     /**
      * @param args the command line arguments

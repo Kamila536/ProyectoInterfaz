@@ -183,18 +183,19 @@ public class Producto {
  
 
     // --- Métodos estándar ---
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Producto producto = (Producto) obj;
-        return clave.equals(producto.clave);
-    }
+ @Override
+public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null || getClass() != obj.getClass()) return false;
+    Producto producto = (Producto) obj;
+    return clave != null && clave.equals(producto.clave);
+}
 
-    @Override
-    public int hashCode() {
-        return clave.hashCode();
-    }
+@Override
+public int hashCode() {
+    return clave == null ? 0 : clave.hashCode();
+}
+
 
     @Override
     public String toString() {

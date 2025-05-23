@@ -58,24 +58,18 @@ public Producto consultarProductoPorClave(String clave) throws PersistenciaExcep
 }
 
 
-
-
-
-
-
-    // Requisito 17
+    
     public void actualizarProducto(Producto producto) throws PersistenciaException {
-    // Valida que el producto existe, sea granel o no
-    Producto existente = consultarProductoPorClave(producto.getClave());
-
-    // Actualiza en la colección correspondiente según tipo de producto
-    if (producto instanceof ProductoGranel) {
-        productosGranel.actualizar((ProductoGranel) producto);
+    Producto p = consultarProductoPorClave(producto.getClave());
+    if (p == null) {
+        System.out.println("No se encontró producto con clave: " + producto.getClave());
+        throw new PersistenciaException("Producto no encontrado para actualizar");
     } else {
-        productos.actualizar(producto);
+        System.out.println("Producto encontrado: " + p.getNombre());
     }
+    // Aquí ya sabes que existe, así que llamas a actualizar
+    productos.actualizar(producto);
 }
-
 
     
     public void eliminarProducto(String clave) throws PersistenciaException {
@@ -87,8 +81,7 @@ public Producto consultarProductoPorClave(String clave) throws PersistenciaExcep
     }
 }
 
-
-    // Requisito 19
+    
     public List<Producto> consultarCatalogo(String tipo, String unidad) {
     List<Producto> resultado = new ArrayList<>();
 
@@ -103,12 +96,12 @@ public Producto consultarProductoPorClave(String clave) throws PersistenciaExcep
     }
 
     return resultado;
-}
+    }
 
     public List<Producto> consultarTodosLosProductos() {
     List<Producto> todos = new ArrayList<>();
-    todos.addAll(productos.consultarTodos());      // productos empacados
-    todos.addAll(productosGranel.consultarTodos()); // productos a granel
+    todos.addAll(productos.consultarTodos());      
+    todos.addAll(productosGranel.consultarTodos()); 
     return todos;
 }
 
@@ -123,15 +116,25 @@ public Producto consultarProductoPorClave(String clave) throws PersistenciaExcep
     if (producto instanceof ProductoGranel) {
         ProductoGranel productoGranel = (ProductoGranel) producto;
 
-        MovimientoGranel movimiento = new MovimientoGranel("Compra-" + System.currentTimeMillis(), new Fecha(), false, productoGranel, cantidad);
-        movimientosGranel.registrarCompra(movimiento);
+        
+        productoGranel.setCantidad(productoGranel.getCantidad() + cantidad);
+        productosGranel.actualizar(productoGranel); 
 
-       
+        
+        MovimientoGranel movimiento = new MovimientoGranel(
+            "Compra-" + System.currentTimeMillis(), 
+            new Fecha(), 
+            false, 
+            productoGranel, 
+            cantidad
+        );
+        movimientosGranel.registrarCompra(movimiento);
 
     } else {
         throw new PersistenciaException("Este método solo acepta productos a granel.");
     }
 }
+
 
 
     public void registrarVenta(String clave, double cantidad) throws PersistenciaException {
@@ -144,26 +147,37 @@ public Producto consultarProductoPorClave(String clave) throws PersistenciaExcep
     if (producto instanceof ProductoGranel) {
         ProductoGranel productoGranel = (ProductoGranel) producto;
 
+        // Validar stock suficiente
         if (productoGranel.getCantidad() < cantidad) {
             throw new PersistenciaException("Cantidad insuficiente en el inventario.");
         }
 
+        // Actualizar cantidad del producto
         productoGranel.setCantidad(productoGranel.getCantidad() - cantidad);
 
-        MovimientoGranel movimiento = new MovimientoGranel("Venta-" + System.currentTimeMillis(), new Fecha(), false, productoGranel, cantidad);
+        // Crear movimiento de venta, aquí asumo que 'true' significa venta
+        MovimientoGranel movimiento = new MovimientoGranel(
+            "Venta-" + System.currentTimeMillis(), 
+            new Fecha(), 
+            true,  // <- Cambiado a true para indicar que es venta
+            productoGranel, 
+            cantidad
+        );
+
+        // Registrar el movimiento
         movimientosGranel.registrarVenta(movimiento);
 
+        // Actualizar el producto en la colección
         productosGranel.actualizar(productoGranel);
 
     } else {
         throw new PersistenciaException("Este método solo acepta productos a granel.");
     }
-}
-
+    }
 
     
 
-    // Requisito 22
+    
     public MovimientoGranel consultarCompraPorClave(String clave) throws PersistenciaException {
         return movimientosGranel.consultarCompras().stream()
                 .filter(m -> m.getProductoGranel().getClave().equals(clave))
@@ -171,7 +185,7 @@ public Producto consultarProductoPorClave(String clave) throws PersistenciaExcep
                 .orElseThrow(() -> new PersistenciaException("No existe compra registrada con esa clave."));
     }
 
-    // Requisito 23
+    
     public List<ProductoGranel> inventariarCompras() throws PersistenciaException {
         List<ProductoGranel> procesados = new ArrayList<>();
 
@@ -196,7 +210,7 @@ public Producto consultarProductoPorClave(String clave) throws PersistenciaExcep
     }
     return comprasPorProducto;
 }
-    // Requisito 24
+    
     public List<ProductoGranel> desinventariarVentas() throws PersistenciaException {
         List<ProductoGranel> productosAfectados = new ArrayList<>();
         
@@ -228,7 +242,6 @@ public Producto consultarProductoPorClave(String clave) throws PersistenciaExcep
         return productosGranel.consultarTodos();
     }
 
-    // Requisito 26
     public List<MovimientoGranel> mostrarCompras(Fecha inicio, Fecha fin) {
         if (inicio != null && fin != null) {
             return movimientosGranel.consultarComprasPorPeriodo(inicio, fin);
@@ -237,7 +250,6 @@ public Producto consultarProductoPorClave(String clave) throws PersistenciaExcep
         }
     }
 
-    // Requisito 27
     public List<MovimientoGranel> mostrarVentas(Fecha inicio, Fecha fin) {
         if (inicio != null && fin != null) {
             return movimientosGranel.consultarVentasPorPeriodo(inicio, fin);

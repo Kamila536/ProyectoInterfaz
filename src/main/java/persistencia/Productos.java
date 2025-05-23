@@ -22,14 +22,21 @@ public class Productos {
     }
 
     public void actualizar(Producto producto) throws PersistenciaException {
-        validarProducto(producto);
-        Producto existente = consultarPorClave(producto.getClave());
-        if (existente == null) {
-            throw new PersistenciaException("No existe un producto con la clave: " + producto.getClave());
+    validarProducto(producto);
+    boolean actualizado = false;
+    for (int i = 0; i < productos.size(); i++) {
+        Producto p = productos.get(i);
+        if (p.getClave().equals(producto.getClave())) {
+            productos.set(i, producto);
+            actualizado = true;
+            break;
         }
-        productos.remove(existente);
-        productos.add(producto);
     }
+    if (!actualizado) {
+        throw new PersistenciaException("No existe un producto con la clave: " + producto.getClave());
+    }
+}
+
 
     public void eliminar(String clave) throws PersistenciaException {
         Producto producto = consultarPorClave(clave);

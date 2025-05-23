@@ -54,8 +54,8 @@ JdlFachada$7.class
 JdlAgregarProducto$3.class
 JdlInventarioEliminar$1.class
 JdlComprasPorPeriodo$1.class
+JdlFachada$15.class
 JdlInventarioEliminar$4.class
-JdlFachada$14$1.class
 JdlFachada$12.class
 JdlComprasPorPeriodo$4.class
 JdlActualizarProducto$3.class
@@ -68,7 +68,6 @@ JdlInventarioEliminar.class
 JdlRegistrarCompra$1.class
 JdlActualizarInventario$5.class
 JdlVentasPorPeriodo$3.class
-JdlRegistrarVenta$4.class
 JdlPorTipoUnidad$4.class
 JdlRegistrarVenta$3.class
 JdlFachada$4.class
@@ -78,3 +77,4 @@ JdlAgregarProducto$5.class
 JdlComprasPorPeriodo$3.class
 JdlVentasPorPeriodo$4.class
 JdlPorClave$4.class
+JdlFachada$15$1.class
