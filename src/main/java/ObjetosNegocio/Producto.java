@@ -110,8 +110,7 @@ public class Producto {
         return false;
     }
 
-    return true;    
-    }
+    return true;    }
 
     // Actualiza contadores si la clave es mayor al actual
     private void actualizarContadores(String clave) {

@@ -180,37 +180,37 @@ public class JdlActualizarProducto extends javax.swing.JDialog {
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
-    String clave = txtClave.getText().trim();
-    String nombre = txtNombre.getText().trim();
-    String unidad = txtUnidad.getText().trim();
-    String tipo = "G";
-    
-    if (clave.isEmpty() || nombre.isEmpty() || unidad.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
+    String clave = txtClave.getText().trim().toUpperCase();  // Mayúsculas
+        String nombre = txtNombre.getText().trim();
+        String unidad = txtUnidad.getText().trim().toUpperCase(); // Mayúsculas
 
-    try {
-        // Buscar producto existente para conservar el tipo
-        Producto productoExistente = control.obtenerProducto(clave);
-        if (productoExistente == null) {
-            JOptionPane.showMessageDialog(this, "No existe un producto con esa clave.", "Error", JOptionPane.ERROR_MESSAGE);
+        if (clave.isEmpty() || nombre.isEmpty() || unidad.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        // Crear el objeto actualizado con el tipo original
-        Producto productoActualizado = new Producto(clave, nombre, unidad, productoExistente.getTipo());
+        try {
+            // Buscar producto original
+            Producto productoExistente = control.obtenerProducto(clave);
+            if (productoExistente == null) {
+                JOptionPane.showMessageDialog(this, "No existe un producto con esa clave.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        control.actualizarProducto(productoActualizado);
+            String tipo = productoExistente.getTipo(); // Obtener tipo desde el producto original
 
-        JOptionPane.showMessageDialog(this, "Producto actualizado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        this.dispose();
-        padre.setVisible(true);
+            // Crear producto actualizado
+            Producto productoActualizado = new Producto(clave, nombre, tipo, unidad);
 
-    } catch (PersistenciaException e) {
-        JOptionPane.showMessageDialog(this, "Error al actualizar el producto:\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
+            control.actualizarProducto(productoActualizado);
 
+            JOptionPane.showMessageDialog(this, "Producto actualizado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+            padre.setVisible(true);
+
+        } catch (PersistenciaException | IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar el producto:\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_AceptarActionPerformed
 
