@@ -12,6 +12,7 @@ import javax.swing.JDialog;
  */
 public class JdlVentasPorPeriodo extends javax.swing.JDialog {
 
+
     private JDialog padre;
     /**
      * Creates new form NewJDialog
@@ -31,6 +32,7 @@ public class JdlVentasPorPeriodo extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollBar1 = new javax.swing.JScrollBar();
         Cancelar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         txtClave = new javax.swing.JTextField();
@@ -72,16 +74,16 @@ public class JdlVentasPorPeriodo extends javax.swing.JDialog {
                 .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(118, 118, 118))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(114, 114, 114)
+                .addGap(105, 105, 105)
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
                 .addGap(14, 14, 14)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -150,7 +152,8 @@ public class JdlVentasPorPeriodo extends javax.swing.JDialog {
     }//GEN-LAST:event_txtClaveActionPerformed
 
     private void ResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetearActionPerformed
-        txtClave.setText("");        
+        txtClave.setText("");
+        
     }//GEN-LAST:event_ResetearActionPerformed
 
     /**
@@ -166,6 +169,7 @@ public class JdlVentasPorPeriodo extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JTextField txtClave;
     // End of variables declaration//GEN-END:variables
 }

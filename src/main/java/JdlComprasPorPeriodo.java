@@ -12,6 +12,7 @@ import javax.swing.JDialog;
  */
 public class JdlComprasPorPeriodo extends javax.swing.JDialog {
 
+
     private JDialog padre;
     /**
      * Creates new form NewJDialog

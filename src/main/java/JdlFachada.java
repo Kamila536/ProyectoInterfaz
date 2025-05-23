@@ -203,19 +203,9 @@ public class JdlFachada extends javax.swing.JDialog {
         inventarioConsulta.add(todoProductos);
 
         registroVentasMenu.setText("Registro de ventas");
-        registroVentasMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registroVentasMenuActionPerformed(evt);
-            }
-        });
         inventarioConsulta.add(registroVentasMenu);
 
         registroComprasMenu.setText("Registro de compras");
-        registroComprasMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registroComprasMenuActionPerformed(evt);
-            }
-        });
         inventarioConsulta.add(registroComprasMenu);
 
         ventasPeriodoMenu.setText("Ventas dentro de un periodo dado");
@@ -325,32 +315,33 @@ public class JdlFachada extends javax.swing.JDialog {
     }//GEN-LAST:event_porClaveConsultaActionPerformed
 
     private void porTipoUnidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porTipoUnidadActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        JdlPorTipoUnidad PorTipoUnidadMenu = new JdlPorTipoUnidad(this, true);
+        PorTipoUnidadMenu.setLocationRelativeTo(this);
+        PorTipoUnidadMenu.setVisible(true); 
     }//GEN-LAST:event_porTipoUnidadActionPerformed
 
-    private void todoProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_todoProductosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_todoProductosActionPerformed
-
-    private void registroVentasMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroVentasMenuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_registroVentasMenuActionPerformed
-
-    private void registroComprasMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroComprasMenuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_registroComprasMenuActionPerformed
-
     private void ventasPeriodoMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventasPeriodoMenuActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        JdlVentasPorPeriodo RegistrarCompraMenu = new JdlVentasPorPeriodo(this, true);
+        RegistrarCompraMenu.setLocationRelativeTo(this);
+        RegistrarCompraMenu.setVisible(true);
     }//GEN-LAST:event_ventasPeriodoMenuActionPerformed
 
     private void comprasPeriodoMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comprasPeriodoMenuActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        JdlComprasPorPeriodo ComprasPorPeriodoMenu = new JdlComprasPorPeriodo(this, true);
+        ComprasPorPeriodoMenu.setLocationRelativeTo(this);
+        ComprasPorPeriodoMenu.setVisible(true);
     }//GEN-LAST:event_comprasPeriodoMenuActionPerformed
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         System.exit(0);
     }//GEN-LAST:event_salirActionPerformed
+
+    private void todoProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_todoProductosActionPerformed
+
+    }//GEN-LAST:event_todoProductosActionPerformed
 
     /**
      * @param args the command line arguments

@@ -144,17 +144,11 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Registro de ventas"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registroVentasMenuActionPerformed"/>
-                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="registroComprasMenu">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Registro de compras"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registroComprasMenuActionPerformed"/>
-                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="ventasPeriodoMenu">
                   <Properties>
