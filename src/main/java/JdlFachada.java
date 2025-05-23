@@ -317,14 +317,14 @@ public class JdlFachada extends javax.swing.JDialog {
 
     private void porClaveConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porClaveConsultaActionPerformed
         this.setVisible(false);
-        JdlPorClave PorClaveMenu = new JdlPorClave(this, true);
+        JdlPorClave PorClaveMenu = new JdlPorClave(this, true, control);
         PorClaveMenu.setLocationRelativeTo(this);
         PorClaveMenu.setVisible(true); 
     }//GEN-LAST:event_porClaveConsultaActionPerformed
 
     private void porTipoUnidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porTipoUnidadActionPerformed
         this.setVisible(false);
-        JdlPorTipoUnidad PorTipoUnidadMenu = new JdlPorTipoUnidad(this, true);
+        JdlPorTipoUnidad PorTipoUnidadMenu = new JdlPorTipoUnidad(this, true, control);
         PorTipoUnidadMenu.setLocationRelativeTo(this);
         PorTipoUnidadMenu.setVisible(true); 
     }//GEN-LAST:event_porTipoUnidadActionPerformed

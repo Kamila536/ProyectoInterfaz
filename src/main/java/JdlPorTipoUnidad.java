@@ -1,10 +1,12 @@
 
+import ObjetosNegocio.Producto;
+import control.Control;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 
 /**
  *
@@ -12,13 +14,15 @@ import javax.swing.JDialog;
  */
 public class JdlPorTipoUnidad extends javax.swing.JDialog {
 
+    private Control control;
     private JDialog padre;
     /**
      * Creates new form NewJDialog
      */
-    public JdlPorTipoUnidad(JDialog parent, boolean modal) {
+    public JdlPorTipoUnidad(JDialog parent, boolean modal, Control control) {
         super(parent, modal);
         this.padre = parent;
+        this.control = control;
         initComponents();
     }
 
@@ -143,7 +147,26 @@ public class JdlPorTipoUnidad extends javax.swing.JDialog {
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
-        // TODO add your handling code here:
+        String unidadIngresada = txtClave.getText().trim().toUpperCase();
+
+        if (unidadIngresada.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar una unidad.", "Campo vacío", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        List<Producto> encontrados = control.consultarCatalogo(null, unidadIngresada);
+
+
+        if (encontrados.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No se encontraron productos con la unidad ingresada.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            StringBuilder sb = new StringBuilder("Productos encontrados:\n\n");
+            for (Producto p : encontrados) {
+                sb.append(String.format("Clave: %s | Nombre: %s | Unidad: %s\n", p.getClave(), p.getNombre(), p.getUnidad()));
+            }
+
+            JOptionPane.showMessageDialog(this, sb.toString(), "Resultados", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_AceptarActionPerformed
 
     private void ResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetearActionPerformed

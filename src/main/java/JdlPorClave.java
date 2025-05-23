@@ -1,10 +1,11 @@
 
+import ObjetosNegocio.Producto;
+import control.Control;
+import excepciones.PersistenciaException;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 
 /**
  *
@@ -12,13 +13,16 @@ import javax.swing.JDialog;
  */
 public class JdlPorClave extends javax.swing.JDialog {
 
+    private Control control;
     private JDialog padre;
     /**
      * Creates new form NewJDialog
      */
-    public JdlPorClave(JDialog parent, boolean modal) {
-        super(parent, modal);
-        this.padre = parent;
+    
+    public JdlPorClave(JDialog parent, boolean modal, Control control) {
+    super(parent, modal);
+    this.padre = parent;
+    this.control = control;
         initComponents();
     }
 
@@ -143,7 +147,30 @@ public class JdlPorClave extends javax.swing.JDialog {
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
-        // TODO add your handling code here:
+        String clave = txtClave.getText().trim().toUpperCase();
+
+    // Validación
+    if (clave.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Debe ingresar una clave.", "Campo vacío", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    try {
+        Producto producto = control.consultarProducto(clave);
+
+        // Si se encuentra, muestra los datos del producto
+        JOptionPane.showMessageDialog(this,
+            String.format("Producto encontrado:\n\nClave: %s\nNombre: %s\nUnidad: %s",
+                producto.getClave(), producto.getNombre(), producto.getUnidad()),
+            "Producto encontrado", JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (PersistenciaException e) {
+        JOptionPane.showMessageDialog(this,
+            "No se encontró ningún producto con esa clave.",
+            "Producto no encontrado",
+            JOptionPane.WARNING_MESSAGE);
+    }
+
     }//GEN-LAST:event_AceptarActionPerformed
 
     private void ResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetearActionPerformed
