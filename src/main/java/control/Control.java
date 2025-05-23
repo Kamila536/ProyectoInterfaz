@@ -44,6 +44,10 @@ public class Control {
     public List<Producto> consultarCatalogo(String tipo, String unidad) {
         return fachada.consultarCatalogo(tipo, unidad);
     }
+    
+    public List<Producto> obtenerTodosLosProductos() {
+       return fachada.consultarCatalogo(null, null); // sin filtros
+    }
 
     public Producto obtenerProducto(String clave) throws PersistenciaException {
     return fachada.consultarProductoPorClave(clave);

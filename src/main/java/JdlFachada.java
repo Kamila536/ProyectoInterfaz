@@ -1,3 +1,11 @@
+
+import ObjetosNegocio.Producto;
+import control.Control;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
@@ -8,7 +16,7 @@
  * @author Kamilala
  */
 public class JdlFachada extends javax.swing.JDialog {
-
+    private final Control control = new Control();
     /**
      * Creates new form FachadaI
      */
@@ -274,7 +282,7 @@ public class JdlFachada extends javax.swing.JDialog {
 
     private void agregarPrMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarPrMenuActionPerformed
         this.setVisible(false);
-        JdlAgregarProducto agregarMenu = new JdlAgregarProducto(this, true);
+        JdlAgregarProducto agregarMenu = new JdlAgregarProducto(this, true, control);
         agregarMenu.setLocationRelativeTo(this);
         agregarMenu.setVisible(true);
     }//GEN-LAST:event_agregarPrMenuActionPerformed
@@ -340,6 +348,28 @@ public class JdlFachada extends javax.swing.JDialog {
     }//GEN-LAST:event_salirActionPerformed
 
     private void todoProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_todoProductosActionPerformed
+
+        try {
+        List<Producto> productos = control.obtenerTodosLosProductos();
+
+        if (productos.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay productos en el catálogo.");
+        } else {
+            StringBuilder mensaje = new StringBuilder();
+            for (Producto p : productos) {
+                mensaje.append("Clave: ").append(p.getClave())
+                       .append(", Nombre: ").append(p.getNombre())
+                       .append(", Tipo: ").append(p.getTipo())
+                       .append(", Unidad: ").append(p.getUnidad())
+                       .append("\n");
+            }
+
+            JOptionPane.showMessageDialog(this, mensaje.toString(), "Productos", JOptionPane.INFORMATION_MESSAGE);
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
 
     }//GEN-LAST:event_todoProductosActionPerformed
 

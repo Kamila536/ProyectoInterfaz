@@ -13,14 +13,15 @@ import javax.swing.JOptionPane;
  */
 public class JdlAgregarProducto extends javax.swing.JDialog {
     
-    private final Control control = new Control();
+    private final Control control;
     private JDialog padre;
     /**
      * Creates new form NewJDialog
      */
-    public JdlAgregarProducto(JDialog parent, boolean modal) {
-        super(parent, modal);
-        this.padre = parent;
+    public JdlAgregarProducto(JDialog parent, boolean modal, Control control) {
+    super(parent, modal);
+    this.padre = parent;
+    this.control = control;
         initComponents();
     }
 
