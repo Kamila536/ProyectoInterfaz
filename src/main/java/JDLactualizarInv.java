@@ -10,13 +10,13 @@ import javax.swing.JDialog;
  *
  * @author Kamilala
  */
-public class MostrarMenu5 extends javax.swing.JDialog {
+public class JDLactualizarInv extends javax.swing.JDialog {
 
     private JDialog padre;
     /**
      * Creates new form NewJDialog
      */
-    public MostrarMenu5(JDialog parent, boolean modal) {
+    public JDLactualizarInv(JDialog parent, boolean modal) {
         super(parent, modal);
         this.padre = parent;
         initComponents();
@@ -67,7 +67,7 @@ public class MostrarMenu5 extends javax.swing.JDialog {
         });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Registrar Compra");
+        jLabel2.setText("Actualizar Inventario");
 
         jLabel3.setText("Ingrese la unidad:");
 
@@ -86,24 +86,24 @@ public class MostrarMenu5 extends javax.swing.JDialog {
                     .addComponent(txtClave))
                 .addGap(118, 118, 118))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(114, 114, 114)
+                .addGap(103, 103, 103)
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(8, 8, 8)
                 .addComponent(jLabel2)
-                .addGap(41, 41, 41)
+                .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(96, Short.MAX_VALUE))
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         Aceptar.setText("Aceptar");
@@ -169,7 +169,7 @@ public class MostrarMenu5 extends javax.swing.JDialog {
 
     private void ResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetearActionPerformed
         txtClave.setText("");
-        
+        jTextField1.setText("");
         jTextField2.setText("");
     }//GEN-LAST:event_ResetearActionPerformed
 

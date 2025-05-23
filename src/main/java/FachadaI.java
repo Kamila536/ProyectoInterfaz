@@ -151,9 +151,19 @@ public class FachadaI extends javax.swing.JDialog {
         inventarioMenu.setText("Inventario");
 
         eliminarInventario.setText("Eliminar");
+        eliminarInventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarInventarioActionPerformed(evt);
+            }
+        });
         inventarioMenu.add(eliminarInventario);
 
         actualizarInventario.setText("Actualizar");
+        actualizarInventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                actualizarInventarioActionPerformed(evt);
+            }
+        });
         inventarioMenu.add(actualizarInventario);
 
         MovimientosMenu.add(inventarioMenu);
@@ -220,16 +230,16 @@ public class FachadaI extends javax.swing.JDialog {
 
     private void ventaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventaMenuActionPerformed
         this.setVisible(false);
-        MostrarMenu6 productoMenu = new MostrarMenu6(this, true);
-        productoMenu.setLocationRelativeTo(this);
-        productoMenu.setVisible(true);
+        JDLregistrarVenta agregarV = new JDLregistrarVenta(this, true);
+        agregarV.setLocationRelativeTo(this);
+        agregarV.setVisible(true);
     }//GEN-LAST:event_ventaMenuActionPerformed
 
     private void compraMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compraMenuActionPerformed
         this.setVisible(false);
-        MostrarMenu5 agregarP = new MostrarMenu5(this, true);
-        agregarP.setLocationRelativeTo(this);
-        agregarP.setVisible(true);
+        JDLregistrarCompra agregarC = new JDLregistrarCompra(this, true);
+        agregarC.setLocationRelativeTo(this);
+        agregarC.setVisible(true);
     }//GEN-LAST:event_compraMenuActionPerformed
 
     private void agregarPrMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarPrMenuActionPerformed
@@ -247,11 +257,25 @@ public class FachadaI extends javax.swing.JDialog {
     }//GEN-LAST:event_actualizarPrMenuActionPerformed
 
     private void eliminarPrMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarPrMenuActionPerformed
-       this.setVisible(false);
+        this.setVisible(false);
         EliminarProducto eliminarP = new EliminarProducto(this, true);
         eliminarP.setLocationRelativeTo(this);
         eliminarP.setVisible(true); 
     }//GEN-LAST:event_eliminarPrMenuActionPerformed
+
+    private void eliminarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarInventarioActionPerformed
+        this.setVisible(false);
+        JDLeliminarInv eliminarInv = new JDLeliminarInv(this, true);
+        eliminarInv.setLocationRelativeTo(this);
+        eliminarInv.setVisible(true); 
+    }//GEN-LAST:event_eliminarInventarioActionPerformed
+
+    private void actualizarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarInventarioActionPerformed
+        this.setVisible(false);
+        JDLactualizarInv actualizarInv = new JDLactualizarInv(this, true);
+        actualizarInv.setLocationRelativeTo(this);
+        actualizarInv.setVisible(true); 
+    }//GEN-LAST:event_actualizarInventarioActionPerformed
 
     /**
      * @param args the command line arguments
