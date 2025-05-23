@@ -31,11 +31,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Agregar"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="consultarPrMenu">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Consultar"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="agregarPrMenuActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="actualizarPrMenu">
               <Properties>
@@ -70,16 +68,11 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ventaMenuActionPerformed"/>
               </Events>
             </MenuItem>
-            <Menu class="javax.swing.JMenu" name="InventarioMenu">
+            <Menu class="javax.swing.JMenu" name="inventarioMenu">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Inventario"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="agregarInventario">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Agregar"/>
-                  </Properties>
-                </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="eliminarInventario">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Eliminar"/>
@@ -104,11 +97,6 @@
                 <Property name="text" type="java.lang.String" value="Producto"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="listCompleto">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Listado Completo"/>
-                  </Properties>
-                </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="porClaveConsulta">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Por Clave"/>
@@ -129,11 +117,6 @@
                 <MenuItem class="javax.swing.JMenuItem" name="todoProductos">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Todos los productos"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="productosGranelConsultas">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Productos granel"/>
                   </Properties>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="registroVentasMenu">

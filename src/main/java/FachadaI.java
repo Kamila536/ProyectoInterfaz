@@ -36,24 +36,20 @@ public class FachadaI extends javax.swing.JDialog {
         jMenuBar1 = new javax.swing.JMenuBar();
         productosMenu = new javax.swing.JMenu();
         agregarPrMenu = new javax.swing.JMenuItem();
-        consultarPrMenu = new javax.swing.JMenuItem();
         actualizarPrMenu = new javax.swing.JMenuItem();
         eliminarPrMenu = new javax.swing.JMenuItem();
         MovimientosMenu = new javax.swing.JMenu();
         compraMenu = new javax.swing.JMenuItem();
         ventaMenu = new javax.swing.JMenuItem();
-        InventarioMenu = new javax.swing.JMenu();
-        agregarInventario = new javax.swing.JMenuItem();
+        inventarioMenu = new javax.swing.JMenu();
         eliminarInventario = new javax.swing.JMenuItem();
         actualizarInventario = new javax.swing.JMenuItem();
         consultasMenu = new javax.swing.JMenu();
         productoConsulta = new javax.swing.JMenu();
-        listCompleto = new javax.swing.JMenuItem();
         porClaveConsulta = new javax.swing.JMenuItem();
         porTipoUnidad = new javax.swing.JMenuItem();
         inventarioConsulta = new javax.swing.JMenu();
         todoProductos = new javax.swing.JMenuItem();
-        productosGranelConsultas = new javax.swing.JMenuItem();
         registroVentasMenu = new javax.swing.JMenuItem();
         registroComprasMenu = new javax.swing.JMenuItem();
         ventasPeriodoMenu = new javax.swing.JMenuItem();
@@ -109,10 +105,12 @@ public class FachadaI extends javax.swing.JDialog {
         productosMenu.setText("Productos");
 
         agregarPrMenu.setText("Agregar");
+        agregarPrMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarPrMenuActionPerformed(evt);
+            }
+        });
         productosMenu.add(agregarPrMenu);
-
-        consultarPrMenu.setText("Consultar");
-        productosMenu.add(consultarPrMenu);
 
         actualizarPrMenu.setText("Actualizar");
         productosMenu.add(actualizarPrMenu);
@@ -140,27 +138,21 @@ public class FachadaI extends javax.swing.JDialog {
         });
         MovimientosMenu.add(ventaMenu);
 
-        InventarioMenu.setText("Inventario");
-
-        agregarInventario.setText("Agregar");
-        InventarioMenu.add(agregarInventario);
+        inventarioMenu.setText("Inventario");
 
         eliminarInventario.setText("Eliminar");
-        InventarioMenu.add(eliminarInventario);
+        inventarioMenu.add(eliminarInventario);
 
         actualizarInventario.setText("Actualizar");
-        InventarioMenu.add(actualizarInventario);
+        inventarioMenu.add(actualizarInventario);
 
-        MovimientosMenu.add(InventarioMenu);
+        MovimientosMenu.add(inventarioMenu);
 
         jMenuBar1.add(MovimientosMenu);
 
         consultasMenu.setText("Consultas");
 
         productoConsulta.setText("Producto");
-
-        listCompleto.setText("Listado Completo");
-        productoConsulta.add(listCompleto);
 
         porClaveConsulta.setText("Por Clave");
         productoConsulta.add(porClaveConsulta);
@@ -174,9 +166,6 @@ public class FachadaI extends javax.swing.JDialog {
 
         todoProductos.setText("Todos los productos");
         inventarioConsulta.add(todoProductos);
-
-        productosGranelConsultas.setText("Productos granel");
-        inventarioConsulta.add(productosGranelConsultas);
 
         registroVentasMenu.setText("Registro de ventas");
         inventarioConsulta.add(registroVentasMenu);
@@ -221,17 +210,24 @@ public class FachadaI extends javax.swing.JDialog {
 
     private void ventaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventaMenuActionPerformed
         this.setVisible(false);
-        MostrarMenu productoMenu = new MostrarMenu(this, true);
+        MostrarMenu6 productoMenu = new MostrarMenu6(this, true);
         productoMenu.setLocationRelativeTo(this);
         productoMenu.setVisible(true);
     }//GEN-LAST:event_ventaMenuActionPerformed
 
     private void compraMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compraMenuActionPerformed
         this.setVisible(false);
-        MostrarMenu agregarP = new MostrarMenu(this, true);
+        MostrarMenu5 agregarP = new MostrarMenu5(this, true);
         agregarP.setLocationRelativeTo(this);
         agregarP.setVisible(true);
     }//GEN-LAST:event_compraMenuActionPerformed
+
+    private void agregarPrMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarPrMenuActionPerformed
+        this.setVisible(false);
+        MostrarMenu agregarP = new MostrarMenu(this, true);
+        agregarP.setLocationRelativeTo(this);
+        agregarP.setVisible(true);
+    }//GEN-LAST:event_agregarPrMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -276,19 +272,17 @@ public class FachadaI extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu InventarioMenu;
     private javax.swing.JMenu MovimientosMenu;
     private javax.swing.JMenuItem actualizarInventario;
     private javax.swing.JMenuItem actualizarPrMenu;
-    private javax.swing.JMenuItem agregarInventario;
     private javax.swing.JMenuItem agregarPrMenu;
     private javax.swing.JMenuItem compraMenu;
     private javax.swing.JMenuItem comprasPeriodoMenu;
-    private javax.swing.JMenuItem consultarPrMenu;
     private javax.swing.JMenu consultasMenu;
     private javax.swing.JMenuItem eliminarInventario;
     private javax.swing.JMenuItem eliminarPrMenu;
     private javax.swing.JMenu inventarioConsulta;
+    private javax.swing.JMenu inventarioMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -297,11 +291,9 @@ public class FachadaI extends javax.swing.JDialog {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JMenuItem listCompleto;
     private javax.swing.JMenuItem porClaveConsulta;
     private javax.swing.JMenuItem porTipoUnidad;
     private javax.swing.JMenu productoConsulta;
-    private javax.swing.JMenuItem productosGranelConsultas;
     private javax.swing.JMenu productosMenu;
     private javax.swing.JMenuItem registroComprasMenu;
     private javax.swing.JMenuItem registroVentasMenu;
