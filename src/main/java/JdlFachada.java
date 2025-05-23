@@ -65,6 +65,7 @@ public class JdlFachada extends javax.swing.JDialog {
         registroComprasMenu = new javax.swing.JMenuItem();
         ventasPeriodoMenu = new javax.swing.JMenuItem();
         comprasPeriodoMenu = new javax.swing.JMenuItem();
+        Salir = new javax.swing.JMenuItem();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -254,6 +255,14 @@ public class JdlFachada extends javax.swing.JDialog {
 
         consultasMenu.add(inventarioConsulta);
 
+        Salir.setText("SALIR");
+        Salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalirActionPerformed(evt);
+            }
+        });
+        consultasMenu.add(Salir);
+
         jMenuBar1.add(consultasMenu);
 
         setJMenuBar(jMenuBar1);
@@ -356,7 +365,6 @@ public class JdlFachada extends javax.swing.JDialog {
     }//GEN-LAST:event_comprasPeriodoMenuActionPerformed
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
-        System.exit(0);
     }//GEN-LAST:event_salirActionPerformed
 
     private void todoProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_todoProductosActionPerformed
@@ -382,11 +390,30 @@ public class JdlFachada extends javax.swing.JDialog {
         JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-
     }//GEN-LAST:event_todoProductosActionPerformed
 
     private void registroVentasMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroVentasMenuActionPerformed
-       
+   
+    Fecha inicio = new Fecha(1, 1, 2000);  // Desde el año 2000
+    Fecha fin = new Fecha(31, 12, 2100);   // Hasta el año 2100
+
+    List<MovimientoGranel> ventas = control.mostrarVentas(inicio, fin);
+
+    if (ventas.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "No hay movimientos de venta registrados.");
+        return;
+    }
+
+    StringBuilder mensaje = new StringBuilder("Movimientos de venta registrados:\n");
+    for (MovimientoGranel mov : ventas) {
+        mensaje.append("Clave: ").append(mov.getProductoGranel().getClave()).append("\n")
+               .append("Cantidad: ").append(mov.getCantidad()).append("\n")
+               .append("Fecha: ").append(mov.getFecha()).append("\n")
+               .append("Procesado: ").append(mov.isProcesado() ? "Sí" : "No").append("\n")
+               .append("---------------------------\n");
+    }
+
+    javax.swing.JOptionPane.showMessageDialog(this, mensaje.toString());
     }//GEN-LAST:event_registroVentasMenuActionPerformed
 
     private void registroComprasMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroComprasMenuActionPerformed
@@ -418,6 +445,10 @@ public class JdlFachada extends javax.swing.JDialog {
         javax.swing.JOptionPane.showMessageDialog(this, "Error al obtener el historial: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_registroComprasMenuActionPerformed
+
+    private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
+       System.exit(0);
+    }//GEN-LAST:event_SalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -466,6 +497,7 @@ public class JdlFachada extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MovimientosMenu;
+    private javax.swing.JMenuItem Salir;
     private javax.swing.JMenuItem actualizarInventario;
     private javax.swing.JMenuItem actualizarPrMenu;
     private javax.swing.JMenuItem agregarPrMenu;
