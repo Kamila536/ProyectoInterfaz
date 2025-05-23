@@ -62,24 +62,18 @@ public class ProductoGranel extends Producto {
 
     // Sobrescritura de equals y hashCode
     @Override
-    public boolean equals(Object obj) {
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        ProductoGranel other = (ProductoGranel) obj;
-        return Double.compare(other.cantidad, cantidad) == 0;
-    }
+public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null || getClass() != obj.getClass()) return false;
+    ProductoGranel other = (ProductoGranel) obj;
+    return this.getClave().equals(other.getClave());
+}
 
-    @Override
-    public int hashCode() {
-        return super.hashCode() + Double.hashCode(cantidad);
-    }
+@Override
+public int hashCode() {
+    return this.getClave().hashCode();
+}
+
 
     // Método toString mejorado
     @Override

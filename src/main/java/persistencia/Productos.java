@@ -40,11 +40,16 @@ public class Productos {
     }
 
     public Producto consultarPorClave(String clave) {
-        return productos.stream()
-                .filter(p -> p.getClave().equals(clave))
-                .findFirst()
-                .orElse(null);
-    }
+    if (clave == null) return null;
+    String claveLimpia = clave.trim().toUpperCase();
+    return productos.stream()
+        .filter(p -> p.getClave() != null && p.getClave().toUpperCase().equals(claveLimpia))
+        .findFirst()
+        .orElse(null);
+}
+
+
+
 
     public List<Producto> consultarTodos() {
         return new ArrayList<>(productos);

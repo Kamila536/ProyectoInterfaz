@@ -41,11 +41,16 @@ public class PersistenciaFachada {
 }
 
 public Producto consultarProductoPorClave(String clave) throws PersistenciaException {
-    Producto producto = productos.consultarPorClave(clave);
+    if (clave == null) {
+        throw new PersistenciaException("Clave no puede ser nula");
+    }
+    String claveLimpia = clave.trim().toUpperCase();
+
+    Producto producto = productos.consultarPorClave(claveLimpia);
     if (producto != null) {
         return producto;
     }
-    producto = productosGranel.consultarPorClave(clave);
+    producto = productosGranel.consultarPorClave(claveLimpia);
     if (producto != null) {
         return producto;
     }
@@ -54,22 +59,59 @@ public Producto consultarProductoPorClave(String clave) throws PersistenciaExcep
 
 
 
+
+
+
+
     // Requisito 17
     public void actualizarProducto(Producto producto) throws PersistenciaException {
-        consultarProductoPorClave(producto.getClave()); // para validar existencia
+    // Valida que el producto existe, sea granel o no
+    Producto existente = consultarProductoPorClave(producto.getClave());
+
+    // Actualiza en la colección correspondiente según tipo de producto
+    if (producto instanceof ProductoGranel) {
+        productosGranel.actualizar((ProductoGranel) producto);
+    } else {
         productos.actualizar(producto);
     }
+}
 
-    // Requisito 18
+
+    
     public void eliminarProducto(String clave) throws PersistenciaException {
-        consultarProductoPorClave(clave); // para validar existencia
+    Producto producto = consultarProductoPorClave(clave);
+    if (producto instanceof ProductoGranel) {
+        productosGranel.eliminar(clave);
+    } else {
         productos.eliminar(clave);
     }
+}
+
 
     // Requisito 19
     public List<Producto> consultarCatalogo(String tipo, String unidad) {
-        return productos.consultarConFiltros(tipo, unidad);
+    List<Producto> resultado = new ArrayList<>();
+
+    // Consulta en productos empacados (tipo "E")
+    if (tipo == null || tipo.equals("E")) {
+        resultado.addAll(productos.consultarConFiltros(tipo, unidad));
     }
+
+    // Consulta en productos a granel (tipo "G")
+    if (tipo == null || tipo.equals("G")) {
+        resultado.addAll(productosGranel.consultarConFiltros(tipo, unidad));
+    }
+
+    return resultado;
+}
+
+    public List<Producto> consultarTodosLosProductos() {
+    List<Producto> todos = new ArrayList<>();
+    todos.addAll(productos.consultarTodos());      // productos empacados
+    todos.addAll(productosGranel.consultarTodos()); // productos a granel
+    return todos;
+}
+
     
    public void registrarCompra(String clave, double cantidad) throws PersistenciaException {
     Producto producto = consultarProductoPorClave(clave);
@@ -80,12 +122,11 @@ public Producto consultarProductoPorClave(String clave) throws PersistenciaExcep
 
     if (producto instanceof ProductoGranel) {
         ProductoGranel productoGranel = (ProductoGranel) producto;
-        productoGranel.setCantidad(productoGranel.getCantidad() + cantidad);
 
         MovimientoGranel movimiento = new MovimientoGranel("Compra-" + System.currentTimeMillis(), new Fecha(), false, productoGranel, cantidad);
         movimientosGranel.registrarCompra(movimiento);
 
-        productosGranel.actualizar(productoGranel);
+       
 
     } else {
         throw new PersistenciaException("Este método solo acepta productos a granel.");
@@ -182,7 +223,7 @@ public Producto consultarProductoPorClave(String clave) throws PersistenciaExcep
         return productosAfectados;
     }
 
-    // Requisito 25
+
     public List<ProductoGranel> mostrarInventario() {
         return productosGranel.consultarTodos();
     }
@@ -204,8 +245,6 @@ public Producto consultarProductoPorClave(String clave) throws PersistenciaExcep
             return movimientosGranel.consultarVentas();
         }
     }
-    
-    
     
 }
 

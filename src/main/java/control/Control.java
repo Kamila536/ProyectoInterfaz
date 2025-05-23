@@ -31,33 +31,42 @@ public class Control {
     // Instanciar el objeto adecuado y establecer el tipo primero
     if (tipo.equals("G")) {
         ProductoGranel pg = new ProductoGranel();
-        pg.setTipo(tipo);       // ✅ PRIMERO setTipo
-        pg.setCantidad(0.01);   // cantidad inicial
+        pg.setTipo(tipo);       
+        pg.setCantidad(0.01);   
         producto = pg;
     } else if (tipo.equals("E")) {
         producto = new Producto();
-        producto.setTipo(tipo); // ✅ PRIMERO setTipo
+        producto.setTipo(tipo); 
     } else {
         throw new PersistenciaException("Tipo inválido.");
     }
 
-    producto.setClave(clave);     // ✅ DESPUÉS de setTipo
+    producto.setClave(clave);     
     producto.setNombre(nombre);
     producto.setUnidad(unidad);
 
     fachada.agregarProducto(producto);
+    }
+
+
+
+
+   public Producto consultarProducto(String clave) throws PersistenciaException {
+    if (clave == null) {
+        throw new PersistenciaException("Clave inválida");
+    }
+    return fachada.consultarProductoPorClave(clave.trim().toUpperCase());
+}
+
+public void actualizarProducto(Producto producto) throws PersistenciaException {
+    if (producto == null || producto.getClave() == null) {
+        throw new PersistenciaException("Producto o clave nula.");
+    }
+    producto.setClave(producto.getClave().trim().toUpperCase());
+    fachada.actualizarProducto(producto);
 }
 
 
-
-
-    public Producto consultarProducto(String clave) throws PersistenciaException {
-        return fachada.consultarProductoPorClave(clave);
-    }
-
-    public void actualizarProducto(Producto producto) throws PersistenciaException {
-        fachada.actualizarProducto(producto);
-    }
 
     public void eliminarProducto(String clave) throws PersistenciaException {
         fachada.eliminarProducto(clave);
@@ -68,8 +77,9 @@ public class Control {
     }
     
     public List<Producto> obtenerTodosLosProductos() {
-       return fachada.consultarCatalogo(null, null); // sin filtros
+    return fachada.consultarTodosLosProductos();
     }
+
 
     public Producto obtenerProducto(String clave) throws PersistenciaException {
     return fachada.consultarProductoPorClave(clave);
@@ -112,7 +122,4 @@ public class Control {
     }
 }
 
-
-
-    
 

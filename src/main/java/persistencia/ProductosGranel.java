@@ -4,6 +4,7 @@ import ObjetosNegocio.ProductoGranel;
 import excepciones.PersistenciaException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductosGranel {
     private List<ProductoGranel> productosGranel;
@@ -26,8 +27,9 @@ public class ProductosGranel {
         if (existente == null) {
             throw new PersistenciaException("No existe un producto a granel con la clave: " + productoGranel.getClave());
         }
-        productosGranel.remove(existente);
-        productosGranel.add(productoGranel);
+        int index = productosGranel.indexOf(existente);
+        productosGranel.set(index, productoGranel);
+
     }
 
     public void eliminar(String clave) throws PersistenciaException {
@@ -39,15 +41,26 @@ public class ProductosGranel {
     }
 
     public ProductoGranel consultarPorClave(String clave) {
-        return productosGranel.stream()
-                .filter(p -> p.getClave().equals(clave))
-                .findFirst()
-                .orElse(null);
-    }
+    if (clave == null) return null;
+    String claveLimpia = clave.trim().toUpperCase();
+    return productosGranel.stream()
+        .filter(p -> p.getClave() != null && p.getClave().toUpperCase().equals(claveLimpia))
+        .findFirst()
+        .orElse(null);
+}
+
+
 
     public List<ProductoGranel> consultarTodos() {
         return new ArrayList<>(productosGranel);
     }
+
+    public List<ProductoGranel> consultarConFiltros(String tipo, String unidad) {
+    return productosGranel.stream()
+            .filter(p -> tipo == null || p.getTipo().equals(tipo))
+            .filter(p -> unidad == null || p.getUnidad().equals(unidad))
+            .collect(Collectors.toList());
+}
 
     // Método privado para validar un ProductoGranel
     private void validarProductoGranel(ProductoGranel productoGranel) throws PersistenciaException {

@@ -379,7 +379,7 @@ public class JdlFachada extends javax.swing.JDialog {
     }//GEN-LAST:event_todoProductosActionPerformed
 
     private void registroVentasMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroVentasMenuActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_registroVentasMenuActionPerformed
 
     /**
