@@ -113,9 +113,19 @@ public class FachadaI extends javax.swing.JDialog {
         productosMenu.add(agregarPrMenu);
 
         actualizarPrMenu.setText("Actualizar");
+        actualizarPrMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                actualizarPrMenuActionPerformed(evt);
+            }
+        });
         productosMenu.add(actualizarPrMenu);
 
         eliminarPrMenu.setText("Eliminar");
+        eliminarPrMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarPrMenuActionPerformed(evt);
+            }
+        });
         productosMenu.add(eliminarPrMenu);
 
         jMenuBar1.add(productosMenu);
@@ -224,10 +234,24 @@ public class FachadaI extends javax.swing.JDialog {
 
     private void agregarPrMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarPrMenuActionPerformed
         this.setVisible(false);
-        MostrarMenu agregarP = new MostrarMenu(this, true);
+        AgregarProducto agregarP = new AgregarProducto(this, true);
         agregarP.setLocationRelativeTo(this);
         agregarP.setVisible(true);
     }//GEN-LAST:event_agregarPrMenuActionPerformed
+
+    private void actualizarPrMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarPrMenuActionPerformed
+        this.setVisible(false);
+        ActualizarProducto actualizarP = new ActualizarProducto(this, true);
+        actualizarP.setLocationRelativeTo(this);
+        actualizarP.setVisible(true);
+    }//GEN-LAST:event_actualizarPrMenuActionPerformed
+
+    private void eliminarPrMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarPrMenuActionPerformed
+       this.setVisible(false);
+        EliminarProducto eliminarP = new EliminarProducto(this, true);
+        eliminarP.setLocationRelativeTo(this);
+        eliminarP.setVisible(true); 
+    }//GEN-LAST:event_eliminarPrMenuActionPerformed
 
     /**
      * @param args the command line arguments

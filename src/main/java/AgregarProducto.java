@@ -10,13 +10,13 @@ import javax.swing.JDialog;
  *
  * @author Kamilala
  */
-public class MostrarMenu3 extends javax.swing.JDialog {
+public class AgregarProducto extends javax.swing.JDialog {
 
     private JDialog padre;
     /**
      * Creates new form NewJDialog
      */
-    public MostrarMenu3(JDialog parent, boolean modal) {
+    public AgregarProducto(JDialog parent, boolean modal) {
         super(parent, modal);
         this.padre = parent;
         initComponents();
@@ -31,6 +31,7 @@ public class MostrarMenu3 extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTextField3 = new javax.swing.JTextField();
         Cancelar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         txtClave = new javax.swing.JTextField();
@@ -42,6 +43,8 @@ public class MostrarMenu3 extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         Aceptar = new javax.swing.JButton();
         Resetear = new javax.swing.JButton();
+
+        jTextField3.setText("jTextField3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -75,18 +78,18 @@ public class MostrarMenu3 extends javax.swing.JDialog {
         });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Actualizar Producto");
+        jLabel2.setText("Agregar Producto");
 
-        jLabel3.setText("Cambio de unidad:");
+        jLabel3.setText("Ingrese la unidad:");
 
-        jLabel4.setText("Cambio de nombre:");
+        jLabel4.setText("Ingrese el nombre");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
+                .addContainerGap(55, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -214,6 +217,7 @@ public class MostrarMenu3 extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField txtClave;
     // End of variables declaration//GEN-END:variables
 }

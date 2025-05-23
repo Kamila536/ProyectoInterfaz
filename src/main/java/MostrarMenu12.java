@@ -150,9 +150,7 @@ public class MostrarMenu12 extends javax.swing.JDialog {
     }//GEN-LAST:event_txtClaveActionPerformed
 
     private void ResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetearActionPerformed
-        txtClave.setText("");
-        jTextField1.setText("");
-        jTextField2.setText("");
+        txtClave.setText("");        
     }//GEN-LAST:event_ResetearActionPerformed
 
     /**

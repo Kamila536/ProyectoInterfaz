@@ -10,13 +10,13 @@ import javax.swing.JDialog;
  *
  * @author Kamilala
  */
-public class MostrarMenu4 extends javax.swing.JDialog {
+public class PorTipoUnidad extends javax.swing.JDialog {
 
     private JDialog padre;
     /**
      * Creates new form NewJDialog
      */
-    public MostrarMenu4(JDialog parent, boolean modal) {
+    public PorTipoUnidad(JDialog parent, boolean modal) {
         super(parent, modal);
         this.padre = parent;
         initComponents();
@@ -34,8 +34,8 @@ public class MostrarMenu4 extends javax.swing.JDialog {
         Cancelar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         txtClave = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         Aceptar = new javax.swing.JButton();
         Resetear = new javax.swing.JButton();
 
@@ -56,10 +56,10 @@ public class MostrarMenu4 extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("Ingrese la clave:");
-
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Eliminar Producto");
+        jLabel2.setText("Por Tipo Unidad");
+
+        jLabel3.setText("Ingrese la unidad:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -71,9 +71,9 @@ public class MostrarMenu4 extends javax.swing.JDialog {
                         .addGap(114, 114, 114)
                         .addComponent(jLabel2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jLabel1)
-                        .addGap(37, 37, 37)
+                        .addGap(59, 59, 59)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
                         .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -82,11 +82,11 @@ public class MostrarMenu4 extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(36, 36, 36)
+                .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
                     .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         Aceptar.setText("Aceptar");
@@ -146,15 +146,13 @@ public class MostrarMenu4 extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_AceptarActionPerformed
 
+    private void ResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetearActionPerformed
+        txtClave.setText("");
+    }//GEN-LAST:event_ResetearActionPerformed
+
     private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtClaveActionPerformed
-
-    private void ResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetearActionPerformed
-        txtClave.setText("");
-        jTextField1.setText("");
-        jTextField2.setText("");
-    }//GEN-LAST:event_ResetearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,8 +164,8 @@ public class MostrarMenu4 extends javax.swing.JDialog {
     private javax.swing.JButton Aceptar;
     private javax.swing.JButton Cancelar;
     private javax.swing.JButton Resetear;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtClave;
     // End of variables declaration//GEN-END:variables

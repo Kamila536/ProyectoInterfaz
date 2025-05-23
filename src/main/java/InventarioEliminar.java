@@ -10,13 +10,13 @@ import javax.swing.JDialog;
  *
  * @author Kamilala
  */
-public class MostrarMenu7 extends javax.swing.JDialog {
+public class InventarioEliminar extends javax.swing.JDialog {
 
     private JDialog padre;
     /**
      * Creates new form NewJDialog
      */
-    public MostrarMenu7(JDialog parent, boolean modal) {
+    public InventarioEliminar(JDialog parent, boolean modal) {
         super(parent, modal);
         this.padre = parent;
         initComponents();
@@ -151,8 +151,6 @@ public class MostrarMenu7 extends javax.swing.JDialog {
 
     private void ResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetearActionPerformed
         txtClave.setText("");
-        jTextField1.setText("");
-        jTextField2.setText("");
     }//GEN-LAST:event_ResetearActionPerformed
 
     /**
